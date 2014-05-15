@@ -412,6 +412,7 @@ public class Facade implements IFacade {
 			return ParseOutcome.failure(parser.getErrors());
 		}
 		else
+			System.out.println("Parsing was a succes!");
 			return ParseOutcome.success(new Program(parser.getGlobals(), parser.getStatement(), handler, factory));
 	}
 
