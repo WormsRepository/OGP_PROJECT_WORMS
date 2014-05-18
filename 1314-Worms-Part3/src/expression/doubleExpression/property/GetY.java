@@ -13,6 +13,6 @@ public class GetY extends Property{
 
 	@Override
 	protected double getProperty(Entity entity) {
-		return ((Position) entity).getY();
+		return entity.getY();
 	}
 }

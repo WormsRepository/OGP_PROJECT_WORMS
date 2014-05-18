@@ -8,11 +8,13 @@ import expression.EntityExpression;
 
 public class Self extends EntityExpression{
 
-	public Self(int line, int column, ImplementedPF implementedPF) {
+	public Self(int line, int column, ImplementedPF implementedPF, Worm worm) {
 		super(line, column);
 		this.implementedPF = implementedPF;
+		this.worm = worm;
 	}
 	
+	private Worm worm = null;
 	@Basic
 	public ImplementedPF getImplementedPF(){
 		return this.implementedPF;
@@ -22,7 +24,6 @@ public class Self extends EntityExpression{
 	
 	@Override
 	public Entity getValue(){
-		setEntity(getImplementedPF().getWorm());
-		return super.getValue();
+		return worm;
 	}
 }

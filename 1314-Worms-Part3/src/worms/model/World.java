@@ -824,6 +824,11 @@ public class World {
 		}
 		
 		this.startNextTurn_Aux(currentWorm);
+		if(currentWorm.getProgram() != null)
+		{
+			System.out.println("test");
+			currentWorm.getProgram().executeNext();
+		}
 	}
 	
 	/**
@@ -952,9 +957,23 @@ public class World {
 		int grootte = worms.size() + 1;
 		String name = "Not Yet Named " + grootte;
 				
-		
+		Worm newWorm = null;
 		double[] position = getNewPosition(0.25);
-		Worm newWorm = new Worm(position[0], position[1], 0, 0.25, name);
+		//TODO hier program.getWorm gebruiken en dan alle variabelen aanpassen
+		if(program != null){
+			System.out.println("program != null");
+			newWorm = program.getWorm();//new Worm(position[0], position[1], 0, 0.25, name);
+			newWorm.setX(position[0]);
+			newWorm.setY(position[1]);
+			newWorm.setDirection(0);
+			newWorm.setRadius(0.25);
+			newWorm.setName(name);
+			newWorm.setProgram(program);
+		}
+		else{
+			System.out.println("program == null");
+			newWorm = new Worm(position[0], position[1], 0, 0.25, name);
+		}
 		this.addAsWorm(newWorm);
 		
 		if(teams.size() > 1){
@@ -969,9 +988,6 @@ public class World {
 			}
 			smallestTeam.addAsTeamWorm(newWorm);
 		}
-		
-		if(program != null)
-			program.setWorm(newWorm);
 	}
 	
 

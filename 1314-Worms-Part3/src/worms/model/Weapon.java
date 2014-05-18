@@ -183,7 +183,7 @@ public class Weapon {
 	 * 			|		(return 0)
 	 */
 	@Model
-	private int getCostOfActionPointsOfWeapon(){
+	public int getCostOfActionPointsOfWeapon(){
 		if(this.getCurrentWeapon() == null)
 			return 0;
 		if(this.getCurrentWeapon().equals("Bazooka"))

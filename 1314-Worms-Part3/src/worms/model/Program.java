@@ -1,21 +1,23 @@
 package worms.model;
 
 import worms.gui.game.*;
-
+import worms.model.programs.ProgramParser;
 
 import java.util.Map;
 
 import be.kuleuven.cs.som.annotate.Basic;
 import statement.S;
+import statement.Sequence;
 import type.T;
 
 public class Program {
 	
-	public Program(Map<String, T> globals, S statement, IActionHandler handler, ImplementedPF factory){
+	public Program(Map<String, T> globals, S statement, IActionHandler handler, ImplementedPF factory, Worm worm){
 		this.setHandler(handler);
 		this.setGlobals(globals);
 		this.setStatement(statement);
 		this.factory = factory;
+		this.worm = worm;
 	}
 	
 	
@@ -33,18 +35,8 @@ public class Program {
 		return this.worm;
 	}
 	
-	protected void setWorm(Worm worm){
-		if(! canHaveAsWorm(worm))
-			throw new IllegalArgumentException();
-		if(worm.getProgram() != null)
-			throw new IllegalArgumentException();
-		this.worm = worm;
-		this.getFactory().setWorm(worm);
-		worm.setProgram(this);
-		//TODO opnieuw parsen?
-	}
 	
-	private Worm worm = null;
+	private final Worm worm;
 	
 	
 	public Map<String, T> getGlobals(){
@@ -81,16 +73,29 @@ public class Program {
 	//TODO: true or false?
 	
 	public void executeNext(){
-		getNextStatement().execute(getWorm());
+		if(isExecuting == true)
+			getNextStatement().execute(getWorm());
 	}
 	//TODO beginnen vanaf laatst uitgevoerde statement
 	public S getNextStatement(){
-		//TODO (Sequence)(statement).getStatements();
-		//TODO nummer van statement zoeken adhv nrStatement.
-		return null;
+		if(statement instanceof Sequence){
+			if(nrStatement == ((Sequence)statement).getStatements().size() -1){
+				nrStatement = 0;
+				return ((Sequence)statement).getStatements().get(nrStatement);
+			}
+			else{
+				nrStatement++;
+				return ((Sequence)statement).getStatements().get(nrStatement -1);
+			}
+			
+		}
+		else {
+			return null; //TODO dit wordt moeilijk :p als het geen sequence is toch het juiste returnen.
+		}
+		//TODO FIXEN
 	}
 	
-	private int nrStatement = 0;
+	private int nrStatement;
 	//TODO implementedPF hier initialiseren met actionHandler en worm
 	
 	@Basic

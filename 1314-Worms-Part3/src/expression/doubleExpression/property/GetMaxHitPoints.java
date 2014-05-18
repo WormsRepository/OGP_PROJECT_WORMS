@@ -13,7 +13,7 @@ public class GetMaxHitPoints extends Property{
 
 	@Override
 	protected double getProperty(Entity entity) {
-		if(Worm.class.isInstance(entity)){
+		if(entity instanceof Worm){
 			return ((Worm) entity).getMaxHitPoints();
 		}
 		else

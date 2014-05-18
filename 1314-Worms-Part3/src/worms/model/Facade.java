@@ -12,7 +12,11 @@ import worms.gui.game.IActionHandler;
 import worms.model.programs.ParseOutcome;
 import worms.model.programs.ProgramParser;
 
+
+
 public class Facade implements IFacade {
+	
+	private World world = null;
 
 	@Override
 	public void addEmptyTeam(World world, String newName) 
@@ -75,6 +79,7 @@ public class Facade implements IFacade {
 					throws ModelException{
 		try{
 			World world = new World(width, height, passableMap, random);
+			this.world = world;
 			return world;
 		}
 		catch(IllegalArgumentException x){
@@ -385,16 +390,31 @@ public class Facade implements IFacade {
 
 	@Override
 	public void addNewWorm(World world, Program program) {
+		System.out.println("addnewWorm gebeurt nu");
 		world.addNewWorm(program);
+		System.out.println("addnewWorm gedaan");
 	}
 
 	@Override
 	public Worm createWorm(World world, double x, double y, double direction,
 			double radius, String name, Program program) {
-		Worm worm = new Worm(x, y, direction, radius, name);
+		Worm worm = null;
 		world.addAsWorm(worm);
-		if(program != null)
-			program.setWorm(worm);
+		System.out.println("TESTJEEE");
+		if(program != null){
+			worm = program.getWorm();
+			worm.setProgram(program);
+			worm.setX(x);
+			worm.setY(y);
+			worm.setDirection(direction);
+			worm.setRadius(radius);
+			worm.setName(name);
+			System.out.println("Test2");
+		}
+		else{
+			System.out.println("gegeven program is null");
+			worm = new Worm(x,y,direction,radius,name);
+		}
 		return worm;
 		//TODO na worm aan te maken, worm van implementedPF setten. (niet meer nodig?)
 	}
@@ -402,8 +422,8 @@ public class Facade implements IFacade {
 	@Override
 	public ParseOutcome<?> parseProgram(String programText,
 			IActionHandler handler) {
-		
-		ImplementedPF factory = new ImplementedPF(handler);
+		Worm worm = new Worm(0, 0, 0, 0.3, "Test");
+		ImplementedPF factory = new ImplementedPF(handler, worm);
 		ProgramParser<E, S, T> parser = new ProgramParser<E, S, T>(factory);
 		parser.parse(programText);		
 		if(!parser.getErrors().isEmpty())
@@ -413,7 +433,8 @@ public class Facade implements IFacade {
 		}
 		else
 			System.out.println("Parsing was a succes!");
-			return ParseOutcome.success(new Program(parser.getGlobals(), parser.getStatement(), handler, factory));
+			
+			return ParseOutcome.success(new Program(parser.getGlobals(), parser.getStatement(), handler, factory, worm));
 	}
 
 	@Override

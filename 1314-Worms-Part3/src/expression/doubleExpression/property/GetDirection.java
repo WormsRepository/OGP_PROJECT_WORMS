@@ -14,7 +14,7 @@ public class GetDirection extends Property{
 
 	@Override
 	protected double getProperty(Entity entity) {
-		if(Worm.class.isInstance(entity)){
+		if(entity instanceof Worm){
 			return ((Worm) entity).getDirection();
 		}
 		else

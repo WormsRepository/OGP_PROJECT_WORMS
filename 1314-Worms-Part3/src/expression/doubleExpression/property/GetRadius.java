@@ -14,9 +14,8 @@ public class GetRadius extends Property{
 
 	@Override
 	protected double getProperty(Entity entity) {
-		if(Worm.class.isInstance(entity)){
-			Worm worm = (Worm) entity;
-			return worm.getRadius();
+		if(entity instanceof Worm){
+			return ((Worm)entity).getRadius();
 		}
 		else if(Food.class.isInstance(entity))
 			return Food.getRadius();

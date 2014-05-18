@@ -20,12 +20,14 @@ import worms.model.programs.ProgramFactory;
 
 public class ImplementedPF implements ProgramFactory<E, S, T>{
 	
-	public ImplementedPF(IActionHandler handler){
+	public ImplementedPF(IActionHandler handler,Worm worm){
 		this.handler = handler;
+		this.worm = worm;
+		//TODO deze worm meegeven aan self
 
 	}
 	
-
+	
 	@Basic
 	public IActionHandler getHandler(){
 		return this.handler;
@@ -75,12 +77,12 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 
 	@Override
 	public E createNull(int line, int column) {
-		return new Null(line, column);
+		return new Null(line, column );
 	}
 
 	@Override
 	public E createSelf(int line, int column) {
-		return new Self(line, column, this);
+		return new Self(line, column, this, worm);
 	}
 
 	@Override
@@ -125,7 +127,7 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 
 	@Override
 	public E createSameTeam(int line, int column, E e) {
-		return new SameTeam(line, column, e, getWorm());
+		return new SameTeam(line, column, e, worm);
 	}
 
 	@Override
@@ -302,4 +304,6 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 		else
 			return new EntityVariableAccess(line, column, name, this);
 	}
+
+	
 }

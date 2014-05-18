@@ -42,5 +42,5 @@ public abstract class VariableAccess extends E{
 		worm = getImplementedPF().getWorm();
 	}
 	
-	private Worm worm = null;
+	protected Worm worm = null;
 }

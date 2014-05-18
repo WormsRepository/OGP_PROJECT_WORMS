@@ -38,14 +38,7 @@ public abstract class Position extends Entity{
 	
 	
 	
-	/**
-	 * Return the x-coordinate of the position (in meter).
-	 */
-	@Basic @Raw
-	public double getX() {
-		return this.x;
-	}
-
+	
 	/**
 	 * Set the x-coordinate for this position to the given x-coordinate.
 	 * 
@@ -64,13 +57,7 @@ public abstract class Position extends Entity{
 		this.x = x;
 	}
 
-	/**
-	 * Return the y-coordinate of the position (in meter).
-	 */
-	@Basic @Raw
-	public double getY() {
-		return this.y;
-	}
+	
 
 	/**
 	 * Set the y-coordinate for this position to the given y-coordinate.
@@ -126,15 +113,9 @@ public abstract class Position extends Entity{
 		this.y = y;
 	}
 	
-	/**
-	 * Variable registering the x-coordinate of a position in meters.
-	 */
-	private double x = 0;
+	
 
-	/**
-	 * Variable registering the y-coordinate of a position in meters.
-	 */
-	private double y = 0;
+	
 	
 	protected abstract void setWorld(World world);
 	

@@ -14,5 +14,6 @@ public class Jump extends Action{
 	@Override
 	protected void executeAction(Worm worm) {
 		getActionHandler().jump(worm);
+		//TODO check for enoug action points
 	}
 }

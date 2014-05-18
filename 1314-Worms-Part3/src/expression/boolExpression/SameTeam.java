@@ -11,8 +11,8 @@ public class SameTeam extends BoolExpression{
 	public SameTeam(int line, int column, E e, Worm worm) {
 		super(line, column);
 		this.e = e;
-		this.worm = worm;
 		setValue(sameTeam());
+		this.worm = worm;
 	}
 	
 	
@@ -24,12 +24,7 @@ public class SameTeam extends BoolExpression{
 	private final E e;
 	
 	
-	@Basic
-	public Worm getWorm(){
-		return this.worm;
-	}
-	
-	private final Worm worm;
+
 	
 	
 	private boolean sameTeam(){
