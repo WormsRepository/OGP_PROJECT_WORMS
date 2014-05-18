@@ -4,12 +4,12 @@ import java.util.Map;
 
 import type.Entity;
 import type.T;
-import worms.model.ImplementedPF;
+import worms.model.Worm;
 
 public class EntityVariableAccess extends EntityExpression{
 
-	public EntityVariableAccess(int line, int column, String name, ImplementedPF implementedPF) {
-		super(line, column, name, implementedPF);
+	public EntityVariableAccess(int line, int column, String name, Worm worm) {
+		super(line, column, name, worm);
 	}
 	
 	public EntityVariableAccess(int line, int column) {
@@ -18,7 +18,6 @@ public class EntityVariableAccess extends EntityExpression{
 
 	@Override
 	public Entity getValue() {
-		setWorm();
 		if(getWorm() != null && getWorm().getProgram() != null){
 			Map<String, T> globals = getWorm().getProgram().getGlobals();
 			return (Entity) globals.get(getName());

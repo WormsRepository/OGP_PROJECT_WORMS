@@ -1,15 +1,14 @@
 package expression;
 
 import be.kuleuven.cs.som.annotate.Basic;
-import worms.model.ImplementedPF;
 import worms.model.Worm;
 
 public abstract class VariableAccess extends E{
 
-	public	VariableAccess(int line, int column, String name, ImplementedPF implementedPF) {
+	public	VariableAccess(int line, int column, String name, Worm worm) {
 		super(line, column);
 		this.name = name;
-		this.implementedPF = implementedPF;
+		this.setWorm(worm);
 	}
 	
 	public VariableAccess(int line, int column){
@@ -24,23 +23,14 @@ public abstract class VariableAccess extends E{
 	private String name = null;
 	
 	
-	
-	@Basic
-	private ImplementedPF getImplementedPF(){
-		return this.implementedPF;
-	}
-	
-	private ImplementedPF implementedPF = null;
-	
-	
 	@Basic
 	protected Worm getWorm(){
 		return this.worm;
 	}
 	
-	protected void setWorm(){
-		worm = getImplementedPF().getWorm();
+	protected void setWorm(Worm worm){
+		this.worm = worm;
 	}
 	
-	protected Worm worm = null;
+	private Worm worm = null;
 }

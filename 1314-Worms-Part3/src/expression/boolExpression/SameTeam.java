@@ -12,7 +12,7 @@ public class SameTeam extends BoolExpression{
 		super(line, column);
 		this.e = e;
 		setValue(sameTeam());
-		this.worm = worm;
+		setWorm(worm);
 	}
 	
 	

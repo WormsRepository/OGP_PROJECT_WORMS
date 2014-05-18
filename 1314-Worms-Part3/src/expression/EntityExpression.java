@@ -2,12 +2,12 @@ package expression;
 
 import be.kuleuven.cs.som.annotate.Basic;
 import type.Entity;
-import worms.model.ImplementedPF;
+import worms.model.Worm;
 
 public abstract class EntityExpression extends VariableAccess{
 
-	public EntityExpression(int line, int column, String name, ImplementedPF implementedPF) {
-		super(line, column, name, implementedPF);
+	public EntityExpression(int line, int column, String name, Worm worm) {
+		super(line, column, name, worm);
 	}
 	
 	public EntityExpression(int line, int column) {

@@ -4,12 +4,12 @@ import java.util.Map;
 
 import type.T;
 import type.Boolean;
-import worms.model.ImplementedPF;
+import worms.model.Worm;
 
 public class BoolVariableAccess extends BoolExpression{
 
-	public BoolVariableAccess(int line, int column, String name, ImplementedPF implementedPF) {
-		super(line, column, name, implementedPF);
+	public BoolVariableAccess(int line, int column, String name, Worm worm) {
+		super(line, column, name, worm);
 	}
 	
 	public BoolVariableAccess(int line, int column) {
@@ -18,7 +18,6 @@ public class BoolVariableAccess extends BoolExpression{
 
 	@Override
 	public Boolean getValue() {
-		setWorm();
 		if(getWorm() != null && getWorm().getProgram() != null){
 			Map<String, T> globals = getWorm().getProgram().getGlobals();
 			return (Boolean) globals.get(getName());

@@ -22,7 +22,7 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 	
 	public ImplementedPF(IActionHandler handler,Worm worm){
 		this.handler = handler;
-		this.worm = worm;
+		setWorm(worm);
 		//TODO deze worm meegeven aan self
 
 	}
@@ -82,7 +82,7 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 
 	@Override
 	public E createSelf(int line, int column) {
-		return new Self(line, column, this, worm);
+		return new Self(line, column, getWorm());
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 
 	@Override
 	public E createSameTeam(int line, int column, E e) {
-		return new SameTeam(line, column, e, worm);
+		return new SameTeam(line, column, e, getWorm());
 	}
 
 	@Override
@@ -298,11 +298,11 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 	@Override
 	public E createVariableAccess(int line, int column, String name, T type) {
 		if(type instanceof Double)
-			return new DoubleVariableAccess(line, column, name, this);
+			return new DoubleVariableAccess(line, column, name, getWorm());
 		else if(type instanceof Boolean)
-			return new BoolVariableAccess(line, column, name, this);
+			return new BoolVariableAccess(line, column, name, getWorm());
 		else
-			return new EntityVariableAccess(line, column, name, this);
+			return new EntityVariableAccess(line, column, name, getWorm());
 	}
 
 	

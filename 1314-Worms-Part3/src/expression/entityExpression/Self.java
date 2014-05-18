@@ -8,22 +8,21 @@ import expression.EntityExpression;
 
 public class Self extends EntityExpression{
 
-	public Self(int line, int column, ImplementedPF implementedPF, Worm worm) {
+	public Self(int line, int column, Worm worm) {
 		super(line, column);
-		this.implementedPF = implementedPF;
 		this.worm = worm;
 	}
 	
-	private Worm worm = null;
 	@Basic
-	public ImplementedPF getImplementedPF(){
-		return this.implementedPF;
+	public Worm getWorm(){
+		return this.worm;
 	}
 	
-	private final ImplementedPF implementedPF;
+	private final Worm worm;
+
 	
 	@Override
 	public Entity getValue(){
-		return worm;
+		return getWorm();
 	}
 }

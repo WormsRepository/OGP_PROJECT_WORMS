@@ -3,11 +3,12 @@ package expression;
 import be.kuleuven.cs.som.annotate.Basic;
 import type.Double;
 import worms.model.ImplementedPF;
+import worms.model.Worm;
 
 public abstract class DoubleExpression extends VariableAccess{
 
-	public DoubleExpression(int line, int column, String name, ImplementedPF implementedPF) {
-		super(line, column, name, implementedPF);
+	public DoubleExpression(int line, int column, String name, Worm worm) {
+		super(line, column, name, worm);
 	}
 	
 	public DoubleExpression(int line, int column) {

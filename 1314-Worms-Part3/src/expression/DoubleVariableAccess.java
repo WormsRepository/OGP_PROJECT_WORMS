@@ -2,16 +2,15 @@ package expression;
 
 import java.util.Map;
 
-
 import type.T;
-import worms.model.ImplementedPF;
+import worms.model.Worm;
 import type.Double;
 
 
 public class DoubleVariableAccess extends DoubleExpression{
 
-	public DoubleVariableAccess(int line, int column, String name, ImplementedPF implementedPF) {
-		super(line, column, name, implementedPF);
+	public DoubleVariableAccess(int line, int column, String name, Worm worm) {
+		super(line, column, name, worm);
 	}
 	
 	public DoubleVariableAccess(int line, int column){
@@ -20,7 +19,6 @@ public class DoubleVariableAccess extends DoubleExpression{
 
 	@Override
 	public Double getValue(){
-		setWorm();
 		if(getWorm() != null && getWorm().getProgram() != null){
 			Map<String, T> globals = getWorm().getProgram().getGlobals();
 			return (Double) globals.get(getName());

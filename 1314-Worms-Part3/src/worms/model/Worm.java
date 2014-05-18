@@ -337,7 +337,8 @@ public class Worm extends WormPosition{
 	 * @post	The new direction of this worm is equal to the given direction.
 	 * 			| new.getDirection() == direction
 	 */
-	@Model @Raw public void setDirection(double direction)
+	@Model @Raw 
+	public void setDirection(double direction)
 	{
 		assert(isValidDirection(direction)):
 			"Precondition: Acceptable direction to set";

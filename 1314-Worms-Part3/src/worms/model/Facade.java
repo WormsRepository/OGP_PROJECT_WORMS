@@ -16,7 +16,6 @@ import worms.model.programs.ProgramParser;
 
 public class Facade implements IFacade {
 	
-	private World world = null;
 
 	@Override
 	public void addEmptyTeam(World world, String newName) 
@@ -79,7 +78,7 @@ public class Facade implements IFacade {
 					throws ModelException{
 		try{
 			World world = new World(width, height, passableMap, random);
-			this.world = world;
+			//TODO this.world = world? (niet meer nodig?)
 			return world;
 		}
 		catch(IllegalArgumentException x){
@@ -410,6 +409,7 @@ public class Facade implements IFacade {
 			worm.setRadius(radius);
 			worm.setName(name);
 			System.out.println("Test2");
+			//TODO make this whole thing in class Worm?
 		}
 		else{
 			System.out.println("gegeven program is null");
@@ -423,6 +423,7 @@ public class Facade implements IFacade {
 	public ParseOutcome<?> parseProgram(String programText,
 			IActionHandler handler) {
 		Worm worm = new Worm(0, 0, 0, 0.3, "Test");
+		//TODO 0.25 or 3?
 		ImplementedPF factory = new ImplementedPF(handler, worm);
 		ProgramParser<E, S, T> parser = new ProgramParser<E, S, T>(factory);
 		parser.parse(programText);		
