@@ -1,30 +1,27 @@
 package expression.boolExpression;
 
+import type.Boolean;
 import worms.model.Food;
 import be.kuleuven.cs.som.annotate.Basic;
 import expression.BoolExpression;
+import expression.DoubleExpression;
 import expression.E;
 import expression.EntityExpression;
 
 public class IsFood extends BoolExpression{
 	
 	public IsFood(int line, int column, E e) {
-		super(line, column);
-		this.e = e;
+		super(line, column, e);
+	}
+	
+	@Override
+	public Boolean getValue(){
 		setValue(isFood());
+		return super.getValue();
 	}
-
-	
-	@Basic
-	public E getE(){
-		return this.e;
-	}
-	
-	private final E e;
-	
 	
 	private boolean isFood(){
-		if(((EntityExpression) getE()).getValue() instanceof Food)
+		if(((EntityExpression) getE1()).getValue() instanceof Food)
 			return true;
 		return false;
 	}

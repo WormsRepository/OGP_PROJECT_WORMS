@@ -1,5 +1,6 @@
 package expression.boolExpression;
 
+import type.Boolean;
 import expression.BoolExpression;
 import expression.DoubleExpression;
 import expression.E;
@@ -8,16 +9,20 @@ import expression.E;
 public class Equality extends BoolExpression {
 
 	public Equality(int line, int column, E e1, E e2) {
-		
-		super(line, column);
-		if(e1 instanceof DoubleExpression)
-			setValue(((DoubleExpression) e1).getValue().compareTo(
-							((DoubleExpression) e2).getValue()) == 0);
-		else if(e1 instanceof BoolExpression)
-			setValue(((BoolExpression) e1).getValue().getBoolean() == 
-							((BoolExpression) e2).getValue().getBoolean());
+		super(line, column, e1, e2);
+	}
+	
+	@Override
+	public Boolean getValue(){
+		if(getE1() instanceof DoubleExpression)
+			setValue(((DoubleExpression) getE1()).getValue().compareTo(
+							((DoubleExpression) getE2()).getValue()) == 0);
+		else if(getE1() instanceof BoolExpression)
+			setValue(((BoolExpression) getE1()).getValue().getBoolean() == 
+							((BoolExpression) getE2()).getValue().getBoolean());
 		else{
-			setValue(e1.getValue() == e2.getValue());
+			setValue(getE1().getValue() == getE2().getValue());
 		}
+		return super.getValue();
 	}
 }

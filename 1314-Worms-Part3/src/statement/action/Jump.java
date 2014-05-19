@@ -18,6 +18,7 @@ public class Jump extends Action{
 		getActionHandler().jump(worm);
 		if(worm.getX() == x && worm.getY() == y)
 			worm.getProgram().setIsExecuting(false);
+			worm.getWorld().startNextTurn();
 		//TODO check for enoug action points
 	}
 }

@@ -1,5 +1,6 @@
 package expression.boolExpression;
 
+import type.Boolean;
 import expression.BoolExpression;
 import expression.DoubleExpression;
 import expression.E;
@@ -8,9 +9,13 @@ import expression.E;
 public class LessOrEqual extends BoolExpression{
 
 	public LessOrEqual(int line, int column, E e1, E e2) {
-		
-		super(line, column);
-		setValue(((DoubleExpression) e1).getValue().compareTo(
-						((DoubleExpression) e2).getValue()) <= 0);
+		super(line, column, e1, e2);
+	}
+	
+	@Override
+	public Boolean getValue(){
+		setValue(((DoubleExpression) getE1()).getValue().compareTo(
+				((DoubleExpression) getE2()).getValue()) <= 0);
+		return super.getValue();
 	}
 }

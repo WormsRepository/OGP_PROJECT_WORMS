@@ -14,8 +14,11 @@ public class Move extends Action{
 	protected void executeAction(Worm worm) {
 		if(worm.canMove())
 			getActionHandler().move(worm);
-		else
+		else{
 			worm.getProgram().setIsExecuting(false);
+			worm.getWorld().startNextTurn();
+		}
+		
 		//TODO check for enoug action points
 	}
 }

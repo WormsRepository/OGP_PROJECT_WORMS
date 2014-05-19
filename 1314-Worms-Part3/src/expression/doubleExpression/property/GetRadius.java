@@ -19,7 +19,9 @@ public class GetRadius extends Property{
 		}
 		else if(Food.class.isInstance(entity))
 			return Food.getRadius();
-		else 
+		else{
+			System.out.println("no radius");
 			return 0;
+		}
 	}
 }

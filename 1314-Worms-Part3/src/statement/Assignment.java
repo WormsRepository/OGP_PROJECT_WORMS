@@ -11,13 +11,12 @@ import worms.model.Worm;
 
 public class Assignment extends S{
 	
-	public Assignment(int line, int column, String variableName, E rhs, ImplementedPF implementedPF){
+	public Assignment(int line, int column, String variableName, E rhs, Worm worm){
 		super(line, column);
 		this.variableName = variableName;
 		this.rhs = rhs;
-		this.implementedPF = implementedPF;
+		this.worm = worm;
 	}
-	
 	
 	
 	@Basic
@@ -37,31 +36,17 @@ public class Assignment extends S{
 	private final E rhs;
 
 	
-	
-	@Basic
-	private ImplementedPF getImplementedPF(){
-		return this.implementedPF;
-	}
-	
-	private final ImplementedPF implementedPF;
-	
-	
 	@Basic
 	protected Worm getWorm(){
 		return this.worm;
 	}
 	
-	protected void setWorm(){
-		worm = getImplementedPF().getWorm();
-	}
-	
-	private Worm worm = null;
+	private final Worm worm;
 	
 	
 
 	@Override
 	public void execute(Entity entity) {
-		setWorm();
 		Map<String, T> globals = getWorm().getProgram().getGlobals();
 		globals.put(getVariableName(), getRhs().getValue());
 	}

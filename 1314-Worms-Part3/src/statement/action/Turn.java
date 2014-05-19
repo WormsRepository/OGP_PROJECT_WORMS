@@ -30,6 +30,7 @@ public class Turn extends Action{
 		}
 		else{
 			worm.getProgram().setIsExecuting(false);
+			worm.getWorld().startNextTurn();
 		}
 	}
 	

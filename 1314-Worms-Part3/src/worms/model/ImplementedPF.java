@@ -246,7 +246,7 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 
 	@Override
 	public S createAssignment(int line, int column, String variableName, E rhs) {
-		return new Assignment(line, column, variableName, rhs, this);
+		return new Assignment(line, column, variableName, rhs, getWorm());
 	}
 
 	@Override

@@ -33,6 +33,7 @@ public class Shoot extends Action{
 		}
 		else{
 			worm.getProgram().setIsExecuting(false);
+			worm.getWorld().startNextTurn();
 		}
 		//TODO check for enoug action points
 	}
