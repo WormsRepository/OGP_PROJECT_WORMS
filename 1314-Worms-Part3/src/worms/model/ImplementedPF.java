@@ -23,8 +23,6 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 	public ImplementedPF(IActionHandler handler,Worm worm){
 		this.handler = handler;
 		setWorm(worm);
-		//TODO deze worm meegeven aan self
-
 	}
 	
 	
@@ -47,7 +45,6 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 	}
 	
 	private Worm worm = null;
-	//TODO veranderen;
 	
 
 	@Override

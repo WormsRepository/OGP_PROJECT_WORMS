@@ -23,6 +23,7 @@ public class Print extends S{
 	
 	@Override
 	public void execute(Entity entity) {
+		System.out.println("Print:");
 		if(getE() instanceof DoubleExpression)
 			System.out.println(((DoubleExpression) getE()).getValue().getDouble());
 		else if(getE() instanceof BoolExpression)
