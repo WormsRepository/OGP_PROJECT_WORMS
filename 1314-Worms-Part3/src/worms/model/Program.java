@@ -80,7 +80,6 @@ public class Program {
 		nrStatement--;
 		int size = getFirstSequenceStatements().size();
 		while(getIsExecuting()){
-			System.out.println("Statement op de juiste manier uitgevoerd");
 			getFirstSequenceStatements().get(nrStatement%size).execute(getWorm());
 				nrStatement++;
 		}

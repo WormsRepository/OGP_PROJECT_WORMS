@@ -13,6 +13,7 @@ public class GetX extends Property{
 
 	@Override
 	protected double getProperty(Entity entity) {
+		System.out.println(entity.getX());
 		return entity.getX();
 	}
 }
