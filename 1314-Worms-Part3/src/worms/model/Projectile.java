@@ -158,11 +158,8 @@ public class Projectile extends Position{
 		// an IllegalDirectionException.
 		double temp = timeStep;
 		double tempTime = 0.0;
-		while(this.getWorld().isAdjacent(tempXY[0], tempXY[1], radius) && tempTime < (1/8.0)
+		while(this.getWorld().isAdjacent(tempXY[0], tempXY[1], radius) && tempTime < (1/16.0)
 				&& this.getWorld().hitAnyWorm(tempXY[0], tempXY[1], radius) == null){
-			if(this.getWorld().hitAnyWorm(tempXY[0], tempXY[1], radius) != null){
-				return tempTime;
-			}
 			tempTime = tempTime + temp;
 			tempXY = getJumpStep(tempTime);
 		}
@@ -209,9 +206,12 @@ public class Projectile extends Position{
 	 * @effect	| deactivate()
 	 */
 	public void jump(double timeStep) 
-			throws NullPointerException, IllegalDirectionException{
+			throws NullPointerException{
 		double[] tempXY = getJumpStep(getJumpTime(timeStep));
-		setPosition(tempXY[0],tempXY[1]);
+		try{
+			setPosition(tempXY[0],tempXY[1]);
+		}
+		catch(IllegalDirectionException x){}
 		if(getHittedWorm() != null)
 			getHittedWorm().reduceCurrentHitPoints(this.getDamage());
 		deactivate();

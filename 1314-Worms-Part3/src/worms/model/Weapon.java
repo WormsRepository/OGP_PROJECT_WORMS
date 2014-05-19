@@ -100,6 +100,7 @@ public class Weapon {
 			}
 			catch(IllegalRadiusException exc){}
 			catch(IllegalArgumentException exc){}
+			catch(IllegalPositionException exc){}
 		}
 	}
 	
