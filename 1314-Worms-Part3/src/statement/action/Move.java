@@ -12,7 +12,10 @@ public class Move extends Action{
 
 	@Override
 	protected void executeAction(Worm worm) {
-		getActionHandler().move(worm);
+		if(worm.canMove())
+			getActionHandler().move(worm);
+		else
+			worm.getProgram().setIsExecuting(false);
 		//TODO check for enoug action points
 	}
 }

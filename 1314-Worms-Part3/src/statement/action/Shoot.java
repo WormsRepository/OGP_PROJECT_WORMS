@@ -27,7 +27,13 @@ public class Shoot extends Action{
 	
 	@Override
 	protected void executeAction(Worm worm) {
-		getActionHandler().fire(worm, (int)((DoubleExpression) this.getYield()).getValue().getDouble());
+		if(worm.getWeapon().getCostOfActionPointsOfWeapon() <= worm.getCurrentActionPoints()){
+			System.out.println("Shot");
+			getActionHandler().fire(worm, (int)((DoubleExpression) this.getYield()).getValue().getDouble());
+		}
+		else{
+			worm.getProgram().setIsExecuting(false);
+		}
 		//TODO check for enoug action points
 	}
 }

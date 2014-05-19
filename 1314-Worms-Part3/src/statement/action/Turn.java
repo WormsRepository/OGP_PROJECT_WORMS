@@ -23,7 +23,14 @@ public class Turn extends Action{
 	
 	@Override
 	protected void executeAction(Worm worm) {
-		getActionHandler().turn(worm, ((DoubleExpression) getAngle()).getValue().getDouble());
+		double angle = ((DoubleExpression) getAngle()).getValue().getDouble();
+		if(worm.canTurn(angle)){
+			System.out.println("Turned");
+			getActionHandler().turn(worm, ((DoubleExpression) getAngle()).getValue().getDouble());
+		}
+		else{
+			worm.getProgram().setIsExecuting(false);
+		}
 	}
 	
 }

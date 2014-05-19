@@ -13,7 +13,11 @@ public class Jump extends Action{
 
 	@Override
 	protected void executeAction(Worm worm) {
+		double x = worm.getX();
+		double y = worm.getY();
 		getActionHandler().jump(worm);
+		if(worm.getX() == x && worm.getY() == y)
+			worm.getProgram().setIsExecuting(false);
 		//TODO check for enoug action points
 	}
 }

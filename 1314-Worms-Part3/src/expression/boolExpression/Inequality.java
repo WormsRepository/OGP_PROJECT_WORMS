@@ -17,6 +17,7 @@ public class Inequality extends BoolExpression{
 			setValue(((BoolExpression) e1).getValue().getBoolean() != 
 							((BoolExpression) e2).getValue().getBoolean());
 		else{
+			System.out.println("inequality");
 			setValue(e1.getValue() != e2.getValue());
 		}
 	}

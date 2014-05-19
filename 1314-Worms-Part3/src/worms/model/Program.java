@@ -3,6 +3,7 @@ package worms.model;
 import worms.gui.game.*;
 import worms.model.programs.ProgramParser;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import be.kuleuven.cs.som.annotate.Basic;
@@ -69,34 +70,24 @@ public class Program {
 		this.isExecuting = b;
 	}
 	
-	private boolean isExecuting;
+	private boolean isExecuting = false;;
 	//TODO: true or false?
 	
 	public void executeNext(){
-		if(isExecuting == true)
-			getNextStatement().execute(getWorm());
-	}
-	//TODO beginnen vanaf laatst uitgevoerde statement
-	public S getNextStatement(){
-		if(statement instanceof Sequence){
-			if(nrStatement == ((Sequence)statement).getStatements().size() -1){
-				nrStatement = 0;
-				return ((Sequence)statement).getStatements().get(nrStatement);
-			}
-			else{
+		setIsExecuting(true);
+		if(getFirstSequenceStatements() == null)
+			getStatement().execute(getWorm());
+		nrStatement--;
+		int size = getFirstSequenceStatements().size();
+		while(getIsExecuting()){
+			System.out.println("Statement op de juiste manier uitgevoerd");
+			getFirstSequenceStatements().get(nrStatement%size).execute(getWorm());
 				nrStatement++;
-				return ((Sequence)statement).getStatements().get(nrStatement -1);
-			}
-			
 		}
-		else {
-			return null; //TODO dit wordt moeilijk :p als het geen sequence is toch het juiste returnen.
-		}
-		//TODO FIXEN
 	}
 	
-	private int nrStatement;
-	//TODO implementedPF hier initialiseren met actionHandler en worm
+	private int nrStatement = 1;
+	
 	
 	@Basic
 	public ImplementedPF getFactory(){
@@ -115,5 +106,22 @@ public class Program {
 	}
 	private IActionHandler handler = null;
 	
-
+	@Basic
+	public ArrayList<S> getFirstSequenceStatements(){
+		return this.firstSequenceStatements;
+	}
+	
+	public void setFirstSequenceStatements(ArrayList<S> statements){
+		this.firstSequenceStatements = statements;
+		this.statementsSet = true;
+	}
+	
+	@Basic
+	public boolean getStatementsSet(){
+		return this.statementsSet;
+	}
+	
+	private ArrayList<S> firstSequenceStatements = null;
+	
+	private boolean statementsSet = false;
 }

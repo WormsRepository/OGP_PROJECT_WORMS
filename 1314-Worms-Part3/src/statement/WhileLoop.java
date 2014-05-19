@@ -35,7 +35,9 @@ public class WhileLoop extends S{
 	@Override
 	public void execute(Entity entity) {
 		if(this.getCondition() instanceof BoolExpression){
-			while(((BoolExpression) this.getCondition()).getValue().getBoolean()){
+			while(((BoolExpression) this.getCondition()).getValue().getBoolean()
+					&& !((Worm) entity).getProgram().getStatementsSet()){
+				//TODO or not first while loop is also ok
 				getBody().execute(entity);
 			}
 		}
