@@ -6,14 +6,12 @@ import type.Entity;
 import type.T;
 import worms.model.Worm;
 
-public class EntityVariableAccess extends EntityExpression{
+public class EntityVariableAccess extends EntityExpression implements VariableAccess{
 
 	public EntityVariableAccess(int line, int column, String name, Worm worm) {
-		super(line, column, name, worm);
-	}
-	
-	public EntityVariableAccess(int line, int column) {
 		super(line, column);
+		this.name = name;
+		this.worm = worm;
 	}
 
 	@Override
@@ -25,4 +23,19 @@ public class EntityVariableAccess extends EntityExpression{
 		return new Entity();
 	}
 
+	
+	@Override
+	public String getName() {
+		return this.name;
+	}
+	
+	private final String name;
+
+	
+	@Override
+	public Worm getWorm() {
+		return this.worm;
+	}
+
+	private final Worm worm;
 }

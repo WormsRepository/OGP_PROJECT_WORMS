@@ -7,15 +7,14 @@ import worms.model.Worm;
 import type.Double;
 
 
-public class DoubleVariableAccess extends DoubleExpression{
+public class DoubleVariableAccess extends DoubleExpression implements VariableAccess{
 
 	public DoubleVariableAccess(int line, int column, String name, Worm worm) {
-		super(line, column, name, worm);
+		super(line, column);
+		this.name = name;
+		this.worm = worm;
 	}
 	
-	public DoubleVariableAccess(int line, int column){
-		super(line, column);
-	}
 
 	@Override
 	public Double getValue(){
@@ -25,4 +24,20 @@ public class DoubleVariableAccess extends DoubleExpression{
 		}
 		return new Double();
 	}
+
+	
+	@Override
+	public String getName() {
+		return this.name;
+	}
+	
+	private final String name;
+
+	
+	@Override
+	public Worm getWorm() {
+		return this.worm;
+	}
+	
+	private final Worm worm;
 }

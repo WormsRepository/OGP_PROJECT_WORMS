@@ -6,15 +6,14 @@ import type.T;
 import type.Boolean;
 import worms.model.Worm;
 
-public class BoolVariableAccess extends BoolExpression{
+public class BoolVariableAccess extends BoolExpression implements VariableAccess{
 
 	public BoolVariableAccess(int line, int column, String name, Worm worm) {
-		super(line, column, name, worm);
+		super(line, column);
+		this.name = name;
+		this.worm = worm;
 	}
 	
-	public BoolVariableAccess(int line, int column) {
-		super(line, column);
-	}
 
 	@Override
 	public Boolean getValue() {
@@ -25,4 +24,18 @@ public class BoolVariableAccess extends BoolExpression{
 		return new Boolean();
 	}
 
+	@Override
+	public String getName() {
+		return this.name;
+	}
+	
+	private final String name;
+	
+
+	@Override
+	public Worm getWorm() {
+		return this.worm;
+	}
+
+	private final Worm worm;
 }

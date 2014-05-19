@@ -5,11 +5,7 @@ import type.Double;
 import worms.model.ImplementedPF;
 import worms.model.Worm;
 
-public abstract class DoubleExpression extends VariableAccess{
-
-	public DoubleExpression(int line, int column, String name, Worm worm) {
-		super(line, column, name, worm);
-	}
+public abstract class DoubleExpression extends E{
 	
 	public DoubleExpression(int line, int column) {
 		super(line, column);
