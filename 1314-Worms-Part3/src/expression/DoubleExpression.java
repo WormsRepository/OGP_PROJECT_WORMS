@@ -2,8 +2,6 @@ package expression;
 
 import be.kuleuven.cs.som.annotate.Basic;
 import type.Double;
-import worms.model.ImplementedPF;
-import worms.model.Worm;
 
 public abstract class DoubleExpression extends E{
 	

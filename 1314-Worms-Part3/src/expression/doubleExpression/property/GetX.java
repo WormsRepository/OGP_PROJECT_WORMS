@@ -1,7 +1,6 @@
 package expression.doubleExpression.property;
 
 import type.Entity;
-import worms.model.Position;
 import expression.E;
 import expression.doubleExpression.Property;
 

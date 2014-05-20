@@ -2,9 +2,7 @@ package expression.boolExpression;
 
 import type.Boolean;
 import worms.model.Food;
-import be.kuleuven.cs.som.annotate.Basic;
 import expression.BoolExpression;
-import expression.DoubleExpression;
 import expression.E;
 import expression.EntityExpression;
 

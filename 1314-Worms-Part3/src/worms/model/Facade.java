@@ -435,7 +435,7 @@ public class Facade implements IFacade {
 		else
 			System.out.println("Parsing was a succes!");
 			
-			return ParseOutcome.success(new Program(parser.getGlobals(), parser.getStatement(), handler, factory, worm));
+			return ParseOutcome.success(new Program(parser.getGlobals(), parser.getStatement(), worm));
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package expression;
 
 import be.kuleuven.cs.som.annotate.Basic;
 import type.Entity;
-import worms.model.Worm;
 
 public abstract class EntityExpression extends E{
 

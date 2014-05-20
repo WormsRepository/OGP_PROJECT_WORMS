@@ -2,7 +2,6 @@ package expression;
 
 import be.kuleuven.cs.som.annotate.Basic;
 import type.Boolean;
-import worms.model.Worm;
 
 public abstract class BoolExpression extends E{
 	

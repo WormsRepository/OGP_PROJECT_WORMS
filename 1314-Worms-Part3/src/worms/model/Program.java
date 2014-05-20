@@ -1,27 +1,21 @@
 package worms.model;
 
 import worms.gui.game.*;
-import worms.model.programs.ProgramParser;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 import be.kuleuven.cs.som.annotate.Basic;
 import statement.S;
-import statement.Sequence;
 import type.T;
 
 public class Program {
 	
-	public Program(Map<String, T> globals, S statement, IActionHandler handler, ImplementedPF factory, Worm worm){
-		this.setHandler(handler);
+	public Program(Map<String, T> globals, S statement, Worm worm){
 		this.setGlobals(globals);
 		this.setStatement(statement);
-		this.factory = factory;
 		this.worm = worm;
 	}
-	
-	
 	
 	public boolean hasAsWorm(Worm worm){
 		return getWorm() == worm;
@@ -36,7 +30,6 @@ public class Program {
 		return this.worm;
 	}
 	
-	
 	private final Worm worm;
 	
 	
@@ -49,6 +42,8 @@ public class Program {
 	}
 	
 	private Map<String, T> globals;
+	
+	
 	
 	public S getStatement(){
 		return this.statement;
@@ -88,22 +83,6 @@ public class Program {
 	private int nrStatement = 1;
 	
 	
-	@Basic
-	public ImplementedPF getFactory(){
-		return factory;
-	}
-
-	private final ImplementedPF factory;
-	
-	
-	public IActionHandler getHandler(){
-		return handler;
-	}
-	@Basic
-	public void setHandler(IActionHandler handler){
-		this.handler = handler;
-	}
-	private IActionHandler handler = null;
 	
 	@Basic
 	public ArrayList<S> getFirstSequenceStatements(){

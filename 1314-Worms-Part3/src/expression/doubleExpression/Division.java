@@ -1,7 +1,6 @@
 package expression.doubleExpression;
 
 import type.Double;
-import be.kuleuven.cs.som.annotate.Basic;
 import expression.DoubleExpression;
 import expression.E;
 

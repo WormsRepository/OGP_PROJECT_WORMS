@@ -2,9 +2,7 @@ package expression.boolExpression;
 
 import type.Boolean;
 import expression.BoolExpression;
-import expression.DoubleExpression;
 import expression.E;
-
 
 public class Negation extends BoolExpression{
 
