@@ -1,7 +1,5 @@
 package worms.model;
 
-import worms.gui.game.*;
-
 import java.util.ArrayList;
 import java.util.Map;
 
