@@ -35,6 +35,7 @@ public class Sequence extends S{
 				if(program.getIsExecuting() && program.getFirstSequenceStatements() == null){
 					System.out.println("Sequence of statements is set");
 					program.setFirstSequenceStatements(getStatements());
+					program.setIsExecuting(false);
 					return;
 				}
 			}

@@ -3,8 +3,9 @@ package worms.model;
 import java.util.ArrayList;
 import java.util.Map;
 
+import expression.BoolExpression;
 import be.kuleuven.cs.som.annotate.Basic;
-import statement.S;
+import statement.*;
 import type.T;
 
 public class Program {
@@ -63,18 +64,38 @@ public class Program {
 		this.isExecuting = b;
 	}
 	
-	private boolean isExecuting = false;;
-	//TODO: true or false?
+	private boolean isExecuting = false;
 	
 	public void executeNext(){
+		//TODO if 1000 statements executed: stop...
+		//TODO handle incorrect operations in a total manner: stop the program
 		setIsExecuting(true);
 		if(getFirstSequenceStatements() == null)
 			getStatement().execute(getWorm());
+		setIsExecuting(true);
 		nrStatement--;
 		int size = getFirstSequenceStatements().size();
+		boolean x = false;
+		if(nrStatement%size == 0)
+			x = true;
 		while(getIsExecuting()){
-			getFirstSequenceStatements().get(nrStatement%size).execute(getWorm());
+			while((nrStatement%size != 0 || x) && getIsExecuting()){
+				getFirstSequenceStatements().get(nrStatement%size).execute(getWorm());
 				nrStatement++;
+				x = false;
+			}
+			x = false;
+			if(getStatement() instanceof WhileLoop &&
+			((WhileLoop) getStatement()).getCondition() instanceof BoolExpression &&
+			((BoolExpression) ((WhileLoop) getStatement()).getCondition()).getValue().getBoolean()){
+				x = true;
+			}
+			else{
+				if(getIsExecuting()){
+					setIsExecuting(false);
+					getWorm().getWorld().startNextTurn();
+				}
+			}
 		}
 	}
 	
@@ -89,15 +110,7 @@ public class Program {
 	
 	public void setFirstSequenceStatements(ArrayList<S> statements){
 		this.firstSequenceStatements = statements;
-		this.statementsSet = true;
-	}
-	
-	@Basic
-	public boolean getStatementsSet(){
-		return this.statementsSet;
 	}
 	
 	private ArrayList<S> firstSequenceStatements = null;
-	
-	private boolean statementsSet = false;
 }
