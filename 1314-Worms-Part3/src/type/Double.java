@@ -4,6 +4,12 @@ import be.kuleuven.cs.som.annotate.Basic;
 
 public class Double extends T implements Comparable<Double>{
 	
+	public Double(double value){
+		setDouble(value);
+	}
+	
+	public Double(){}
+	
 	@Basic
 	public double getDouble(){
 		return this.value;

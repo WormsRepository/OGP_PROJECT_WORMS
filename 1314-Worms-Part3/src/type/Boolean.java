@@ -2,6 +2,12 @@ package type;
 
 public class Boolean extends T{
 	
+	public Boolean(boolean value){
+		setBoolean(value);
+	}
+	
+	public Boolean(){}
+	
 	public boolean getBoolean(){
 		return this.value;
 	}

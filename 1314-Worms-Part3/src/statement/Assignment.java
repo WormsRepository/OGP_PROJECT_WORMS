@@ -3,10 +3,10 @@ package statement;
 import java.util.Map;
 
 import be.kuleuven.cs.som.annotate.*;
-import expression.E;
-import type.Entity;
-import type.T;
-import worms.model.ImplementedPF;
+import expression.*;
+import type.*;
+import type.Boolean;
+import type.Double;
 import worms.model.Worm;
 
 public class Assignment extends S{
@@ -48,6 +48,15 @@ public class Assignment extends S{
 	@Override
 	public void execute(Entity entity) {
 		Map<String, T> globals = getWorm().getProgram().getGlobals();
-		globals.put(getVariableName(), getRhs().getValue());
+		if(getRhs() instanceof DoubleExpression){
+			Double x = new Double(((DoubleExpression) getRhs()).getValue().getDouble());
+			globals.put(getVariableName(), x);
+		}
+		else if(getRhs() instanceof BoolExpression){
+			Boolean x = new Boolean(((BoolExpression) getRhs()).getValue().getBoolean());
+			globals.put(getVariableName(), x);
+		}
+		else
+			globals.put(getVariableName(), getRhs().getValue());
 	}
 }
