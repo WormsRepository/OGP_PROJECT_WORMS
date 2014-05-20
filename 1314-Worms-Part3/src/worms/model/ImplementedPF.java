@@ -129,8 +129,7 @@ public class ImplementedPF implements ProgramFactory<E, S, T>{
 
 	@Override
 	public E createSearchObj(int line, int column, E e) {
-		// TODO Auto-generated method stub
-		return null;
+		return new SearchObject(line, column, e, getWorm());
 	}
 
 	@Override
