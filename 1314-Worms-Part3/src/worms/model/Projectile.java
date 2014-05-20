@@ -164,11 +164,9 @@ public class Projectile extends Position{
 			tempXY = getJumpStep(tempTime);
 		}
 		if(this.getWorld().isImpassable(tempXY[0], tempXY[1], radius)){
-			tempTime = tempTime - temp;
+			tempTime = tempTime - temp/2.0;
 			tempXY = getJumpStep(tempTime);
-			if(this.getWorld().isImpassable(tempXY[0], tempXY[1], radius)){
-				System.out.println("tempTime: " + tempTime);
-				System.out.println("IllegalDirectionexc");
+			if(this.getWorld().hitAnyWorm(tempXY[0], tempXY[1], radius) == null){
 				throw new IllegalDirectionException(this.getDirection());
 			}
 		}
