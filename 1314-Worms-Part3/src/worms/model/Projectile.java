@@ -212,7 +212,9 @@ public class Projectile extends Position{
 		try{
 			setPosition(tempXY[0],tempXY[1]);
 		}
-		catch(IllegalDirectionException x){}
+		catch(IllegalDirectionException x){
+			deactivate();
+		}
 		if(getHittedWorm() != null)
 			getHittedWorm().reduceCurrentHitPoints(this.getDamage());
 		deactivate();
