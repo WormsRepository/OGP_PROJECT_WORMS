@@ -416,7 +416,6 @@ public class Facade implements IFacade {
 			worm = new Worm(x,y,direction,radius,name);
 		}
 		return worm;
-		//TODO na worm aan te maken, worm van implementedPF setten. (niet meer nodig?)
 	}
  //TODO assistent evaluatie invullen.
 	@Override
@@ -445,8 +444,7 @@ public class Facade implements IFacade {
 
 	@Override
 	public boolean isWellFormed(Program program) {
-		return true;
-		//TODO still have to add this.
+		return program.isWellFormed();
 	}
 
 }

@@ -69,6 +69,7 @@ public class Program {
 	public void executeNext(){
 		//TODO if 1000 statements executed: stop...
 		//TODO handle incorrect operations in a total manner: stop the program
+		//TODO worms can jump even when facing downwards.
 		setIsExecuting(true);
 		if(getFirstSequenceStatements() == null)
 			getStatement().execute(getWorm());
@@ -110,7 +111,45 @@ public class Program {
 	
 	public void setFirstSequenceStatements(ArrayList<S> statements){
 		this.firstSequenceStatements = statements;
+		//TODO deze al maken in constructor?
 	}
 	
 	private ArrayList<S> firstSequenceStatements = null;
+	
+	//The boolean b indicates whether or not you are in a forEachLoop.
+	public boolean isWellFormedBody(S body, boolean b){
+		if(body instanceof Action && b){
+			return false;
+		}
+		else if(body instanceof ForEachLoop){
+			ForEachLoop x = (ForEachLoop) body;
+			if(!isWellFormedBody(x.getBody(), true))
+				return false;
+		}
+		else if(body instanceof IfThenElse){
+			IfThenElse x = (IfThenElse) body;
+			if(!isWellFormedBody(x.getThen(),b) || 
+					!isWellFormedBody(x.getOtherwise(),b))
+				return false;
+		}
+		else if(body instanceof Sequence){
+			Sequence x = (Sequence) body;
+			for(S statement: x.getStatements()){
+				if(!isWellFormedBody(statement, b))
+					return false;
+			}
+		}
+		else if(body instanceof WhileLoop){
+			WhileLoop x = (WhileLoop) body;
+			if(!isWellFormedBody(x.getBody(), b))
+				return false;
+		}
+		return true;
+	}
+	
+	public boolean isWellFormed(){
+		if(!isWellFormedBody(this.getStatement(), false))
+				return false;
+		return true;
+	}
 }
