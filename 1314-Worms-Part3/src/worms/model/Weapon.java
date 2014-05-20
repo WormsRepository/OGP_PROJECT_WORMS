@@ -100,7 +100,9 @@ public class Weapon {
 			}
 			catch(IllegalRadiusException exc){}
 			catch(IllegalArgumentException exc){}
-			catch(IllegalPositionException exc){}
+			catch(IllegalPositionException exc){
+				System.out.println("IllegalPositionException in shoot");
+			}
 		}
 	}
 	

@@ -56,7 +56,7 @@ public class Projectile extends Position{
 			this.setInitialPosition(worm.getX(), 
 					worm.getY(), worm.getRadius());
 		}
-		catch(IllegalArgumentException exc){
+		catch(IllegalPositionException exc){
 			this.deactivate();
 			throw exc;
 		}
@@ -164,10 +164,13 @@ public class Projectile extends Position{
 			tempXY = getJumpStep(tempTime);
 		}
 		if(this.getWorld().isImpassable(tempXY[0], tempXY[1], radius)){
-			tempTime = tempTime - (temp/2.0);
+			tempTime = tempTime - temp;
 			tempXY = getJumpStep(tempTime);
-			if(this.getWorld().hitAnyWorm(tempXY[0], tempXY[1], radius) == null)
+			if(this.getWorld().isImpassable(tempXY[0], tempXY[1], radius)){
+				System.out.println("tempTime: " + tempTime);
+				System.out.println("IllegalDirectionexc");
 				throw new IllegalDirectionException(this.getDirection());
+			}
 		}
 		//TODO deze exception verschillend aanpakken als een worm gehit is...
 		
