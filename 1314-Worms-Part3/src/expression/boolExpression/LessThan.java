@@ -16,9 +16,6 @@ public class LessThan extends BoolExpression {
 	public Boolean getValue(){
 		setValue(((DoubleExpression) getE1()).getValue().compareTo(
 				((DoubleExpression) getE2()).getValue()) < 0);
-		System.out.println("value1: " + ((DoubleExpression) getE1()).getValue().getDouble() +
-							" value2: " + ((DoubleExpression) getE2()).getValue().getDouble());	
-		System.out.println("lessThan: " + super.getValue().getBoolean());
 		return super.getValue();
 	}
 }

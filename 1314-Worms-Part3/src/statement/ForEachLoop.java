@@ -65,7 +65,6 @@ public class ForEachLoop extends S{
 						this.getBody().execute((Entity) program.getGlobals().get(getVariableName()));
 					}
 		break;
-		//TODO variabele toekennen?
 		}
 	}
 }

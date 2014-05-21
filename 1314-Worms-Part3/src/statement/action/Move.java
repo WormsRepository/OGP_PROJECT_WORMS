@@ -18,7 +18,5 @@ public class Move extends Action{
 			worm.getProgram().setIsExecuting(false);
 			worm.getWorld().startNextTurn();
 		}
-		
-		//TODO check for enoug action points
 	}
 }

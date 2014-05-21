@@ -25,7 +25,6 @@ public class Turn extends Action{
 	protected void executeAction(Worm worm) {
 		double angle = ((DoubleExpression) getAngle()).getValue().getDouble();
 		if(worm.canTurn(angle)){
-			System.out.println("Turned");
 			getActionHandler().turn(worm, ((DoubleExpression) getAngle()).getValue().getDouble());
 		}
 		else{

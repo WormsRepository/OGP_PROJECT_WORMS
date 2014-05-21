@@ -40,7 +40,7 @@ public class SameTeam extends BoolExpression{
 			}
 		}
 		//TODO stop program
-		System.out.println("fout in sameteam");
+		System.out.println("error in sameteam");
 		return false;
 				
 	}

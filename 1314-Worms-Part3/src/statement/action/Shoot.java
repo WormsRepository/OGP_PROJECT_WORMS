@@ -26,17 +26,14 @@ public class Shoot extends Action{
 	@Override
 	protected void executeAction(Worm worm) {
 		if(worm.getWeapon().getCurrentWeapon() == null){
-			System.out.println("Toggled weapon");
 			getActionHandler().toggleWeapon(worm);
 		}
 		if(worm.getWeapon().getCostOfActionPointsOfWeapon() <= worm.getCurrentActionPoints()){
-			System.out.println("Shot");
 			getActionHandler().fire(worm, (int)((DoubleExpression) this.getYield()).getValue().getDouble());
 		}
 		else{
 			worm.getProgram().setIsExecuting(false);
 			worm.getWorld().startNextTurn();
 		}
-		//TODO check for enoug action points
 	}
 }

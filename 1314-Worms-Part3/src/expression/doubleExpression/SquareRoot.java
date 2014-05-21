@@ -13,7 +13,6 @@ public class SquareRoot extends DoubleExpression{
 	@Override
 	public Double getValue(){
 		setValue(Math.sqrt(((DoubleExpression) getE1()).getValue().getDouble()));
-		System.out.println("square root: " + super.getValue().getDouble());
 		return super.getValue();
 	}
 }
