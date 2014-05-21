@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import expression.BoolExpression;
+import expression.boolExpression.BoolLiteral;
 import be.kuleuven.cs.som.annotate.Basic;
 import statement.*;
 import type.T;
@@ -14,6 +15,8 @@ public class Program {
 		this.setGlobals(globals);
 		this.setStatement(statement);
 		this.worm = worm;
+		setStatements();
+		printStatements();
 	}
 	
 	public boolean hasAsWorm(Worm worm){
@@ -115,6 +118,73 @@ public class Program {
 	}
 	
 	private ArrayList<S> firstSequenceStatements = null;
+	
+	
+	private void printStatements(){
+		int a = 0;
+		for(Statement x: statements){
+			System.out.println(a + ": " + x.getStatement().getClass() + "   " + x.getX());
+			a++;
+		}
+	}
+	
+	private void setStatementsBody(S body){
+		increaseCounter();
+		Statement s = new Statement(body, this);
+		statements.add(s);
+		if(body instanceof Action || body instanceof Assignment || 
+				body instanceof Print || body instanceof ForEachLoop){
+			s.setX(getCounter());
+		}
+		else if(body instanceof IfThenElse){
+			IfThenElse x = (IfThenElse) body;
+			setStatementsBody(x.getThen());
+			double a = getCounter();
+			s.setX(a);
+			setStatementsBody(x.getOtherwise());
+			for(Statement b: statements){
+				if(b.getX() == a)
+					b.setX(getCounter());
+			}
+		}
+		else if(body instanceof Sequence){
+			Sequence x = (Sequence) body;
+			s.setX(getCounter());
+			for(S statement: x.getStatements()){
+				setStatementsBody(statement);	
+			}
+		}
+		else if(body instanceof WhileLoop){
+			WhileLoop x = (WhileLoop) body;
+			double a = getCounter() - 1;
+			setStatementsBody(x.getBody());
+			if(s.getX() == -1)
+				s.setX(getCounter());
+			int c = 0;
+			for(Statement b: statements){
+				if(b.getX() == getCounter() && c!= a)
+					b.setX(a);
+				c++;
+			}
+		}
+	}
+	
+	private void setStatements(){
+		setStatementsBody(getStatement());
+	}
+	
+	private int getCounter(){
+		return this.counter;
+	}
+	
+	private void increaseCounter(){
+		this.counter++;
+	}
+	
+	private int counter = 0;
+	
+	private ArrayList<Statement> statements = new ArrayList<Statement>();
+	
 	
 	//The boolean b indicates whether or not you are in a forEachLoop.
 	public boolean isWellFormedBody(S body, boolean b){
