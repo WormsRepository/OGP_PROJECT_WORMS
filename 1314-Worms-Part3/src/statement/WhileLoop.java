@@ -2,6 +2,7 @@ package statement;
 
 import be.kuleuven.cs.som.annotate.*;
 import type.Entity;
+import worms.model.Statement;
 import worms.model.Worm;
 import expression.BoolExpression;
 import expression.E;
@@ -29,7 +30,6 @@ public class WhileLoop extends S{
 	}
 	
 	final S body;
-
 
 
 	@Override

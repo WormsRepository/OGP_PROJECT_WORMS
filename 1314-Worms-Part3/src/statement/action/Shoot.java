@@ -9,8 +9,6 @@ import worms.model.Worm;
 
 public class Shoot extends Action{
 
-
-
 	public Shoot(int line, int column, IActionHandler handler, E yield) {
 		super(line, column, handler);
 		this.yield = yield;

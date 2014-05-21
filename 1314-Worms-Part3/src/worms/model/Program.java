@@ -15,8 +15,7 @@ public class Program {
 		this.setGlobals(globals);
 		this.setStatement(statement);
 		this.worm = worm;
-		setStatements();
-		printStatements();
+		setStatements(getStatement());
 	}
 	
 	public boolean hasAsWorm(Worm worm){
@@ -71,93 +70,87 @@ public class Program {
 	
 	public void executeNext(){
 		//TODO if 1000 statements executed: stop...
+		//TODO static maken in statement and hold this value.
 		//TODO handle incorrect operations in a total manner: stop the program
 		//TODO worms can jump even when facing downwards.
 		setIsExecuting(true);
-		if(getFirstSequenceStatements() == null)
-			getStatement().execute(getWorm());
-		setIsExecuting(true);
-		nrStatement--;
-		int size = getFirstSequenceStatements().size();
-		boolean x = false;
-		if(nrStatement%size == 0)
-			x = true;
-		while(getIsExecuting()){
-			while((nrStatement%size != 0 || x) && getIsExecuting()){
-				getFirstSequenceStatements().get(nrStatement%size).execute(getWorm());
-				nrStatement++;
-				x = false;
-			}
-			x = false;
-			if(getStatement() instanceof WhileLoop &&
-			((WhileLoop) getStatement()).getCondition() instanceof BoolExpression &&
-			((BoolExpression) ((WhileLoop) getStatement()).getCondition()).getValue().getBoolean()){
-				x = true;
-			}
-			else{
-				if(getIsExecuting()){
-					setIsExecuting(false);
-					getWorm().getWorld().startNextTurn();
-				}
-			}
-		}
+		if(getLastStatement() == null)
+			getStatements().get(0).execute();
+		else
+			getLastStatement().execute();
 	}
-	
-	private int nrStatement = 1;
-	
-	
 	
 	@Basic
-	public ArrayList<S> getFirstSequenceStatements(){
-		return this.firstSequenceStatements;
+	public Statement getLastStatement(){
+		return this.lastStatement;
 	}
 	
-	public void setFirstSequenceStatements(ArrayList<S> statements){
-		this.firstSequenceStatements = statements;
-		//TODO deze al maken in constructor?
+	public void setLastStatement(Statement statement){
+		this.lastStatement = statement;
 	}
 	
-	private ArrayList<S> firstSequenceStatements = null;
+	private Statement lastStatement = null;
 	
+	@Basic
+	public ArrayList<Statement> getStatements(){
+		return this.statements;
+	}
 	
-	private void printStatements(){
-		int a = 0;
+	//only for graphic purpose.
+	public void printStatements(){
 		for(Statement x: statements){
-			System.out.println(a + ": " + x.getStatement().getClass() + "   " + x.getX());
-			a++;
+			System.out.println(x.getNrOfCurrentStatement() + ": " + x.getStatement().getClass() + "   " + x.getX());
 		}
 	}
 	
-	private void setStatementsBody(S body){
-		increaseCounter();
-		Statement s = new Statement(body, this);
-		statements.add(s);
+	private void setStatements(S body){
+		if(body == null)
+			return;
+		Statement s = new Statement(body, this, getCounter());
 		if(body instanceof Action || body instanceof Assignment || 
 				body instanceof Print || body instanceof ForEachLoop){
+			increaseCounter();
+			statements.add(s);
 			s.setX(getCounter());
 		}
 		else if(body instanceof IfThenElse){
+			increaseCounter();
+			statements.add(s);
 			IfThenElse x = (IfThenElse) body;
-			setStatementsBody(x.getThen());
-			double a = getCounter();
-			s.setX(a);
-			setStatementsBody(x.getOtherwise());
+			setStatements(x.getThen());
+			s.setX(getCounter());
+			
+			int a = getCounter();
+			setStatements(x.getOtherwise());
 			for(Statement b: statements){
-				if(b.getX() == a)
+				if(b.getX() == a && 
+						s.getNrOfCurrentStatement() != b.getNrOfCurrentStatement()){
 					b.setX(getCounter());
+				}
 			}
 		}
 		else if(body instanceof Sequence){
+			increaseCounter();
+			statements.add(s);
 			Sequence x = (Sequence) body;
-			s.setX(getCounter());
-			for(S statement: x.getStatements()){
-				setStatementsBody(statement);	
+			if(x.getStatements().size() > 0){
+				s.setX(getCounter());
+				for(S statement: x.getStatements()){
+					setStatements(statement);	
+				}
+			}
+			else{
+				//TODO delete this?
+				decreaseCounter();
+				statements.remove(s);
 			}
 		}
 		else if(body instanceof WhileLoop){
+			increaseCounter();
+			statements.add(s);
 			WhileLoop x = (WhileLoop) body;
-			double a = getCounter() - 1;
-			setStatementsBody(x.getBody());
+			int a = getCounter() - 1;
+			setStatements(x.getBody());
 			if(s.getX() == -1)
 				s.setX(getCounter());
 			int c = 0;
@@ -169,16 +162,16 @@ public class Program {
 		}
 	}
 	
-	private void setStatements(){
-		setStatementsBody(getStatement());
-	}
-	
 	private int getCounter(){
 		return this.counter;
 	}
 	
 	private void increaseCounter(){
-		this.counter++;
+		this.counter = this.counter + 1;
+	}
+	
+	private void decreaseCounter(){
+		this.counter = this.counter - 1;
 	}
 	
 	private int counter = 0;

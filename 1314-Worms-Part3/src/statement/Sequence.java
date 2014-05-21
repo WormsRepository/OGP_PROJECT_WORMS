@@ -6,6 +6,7 @@ import java.util.List;
 
 import type.Entity;
 import worms.model.Program;
+import worms.model.Statement;
 import worms.model.Worm;
 import be.kuleuven.cs.som.annotate.Basic;
 
@@ -26,19 +27,9 @@ public class Sequence extends S{
 	private final ArrayList<S> statements = new ArrayList<S>();
 	
 	
-	
 	@Override
 	public void execute(Entity entity) {
 		if(entity != null){
-			if(((Worm) entity).getProgram() != null){
-				Program program = ((Worm) entity).getProgram();
-				if(program.getIsExecuting() && program.getFirstSequenceStatements() == null){
-					System.out.println("Sequence of statements is set");
-					program.setFirstSequenceStatements(getStatements());
-					program.setIsExecuting(false);
-					return;
-				}
-			}
 			for(S statement: getStatements())
 				statement.execute(entity);
 		}
