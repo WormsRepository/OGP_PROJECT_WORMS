@@ -410,19 +410,13 @@ public abstract class WormPosition extends Position{
 	 * 			It is not possible to perform a jump (and have an initial velocity for a jump)
 	 * 			if the amount of current action points of the worm is zero.
 	 * 			| worm.getCurrentActionPoints() == 0
-	 * @throws 	IllegalDirectionException(worm.getDirection(),worm)
-	 * 			It is not possible to perform a jump (and have an initial velocity for a jump)
-	 * 			if the direction of the worm is greater than pi.
-	 * 			| Math.PI < worm.getDirection()
 	 */
 	@Model
 	private double getInitialVelocity() 
-			throws IllegalActionPointsException, IllegalDirectionException
+			throws IllegalActionPointsException
 	{
 		if(getCurrentActionPoints() == 0)
 			throw new IllegalActionPointsException(0);
-		if(Math.PI < getDirection())
-			throw new IllegalDirectionException(getDirection());
 		double force = (5.0*(double)getCurrentActionPoints()) + (getMass() * STANDARD_ACCELERATION);
 		return (force/getMass()) * 0.5;
 		// The highest possible double to return shall always be lower than 7.5,

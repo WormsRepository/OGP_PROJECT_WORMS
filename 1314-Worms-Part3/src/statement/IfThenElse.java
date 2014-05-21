@@ -1,8 +1,6 @@
 package statement;
 
 import type.Entity;
-import worms.model.Program;
-import worms.model.Statement;
 import worms.model.Worm;
 import be.kuleuven.cs.som.annotate.*;
 import expression.BoolExpression;

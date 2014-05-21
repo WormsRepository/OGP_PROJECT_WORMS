@@ -3,8 +3,6 @@ package worms.model;
 import java.util.ArrayList;
 import java.util.Map;
 
-import expression.BoolExpression;
-import expression.boolExpression.BoolLiteral;
 import be.kuleuven.cs.som.annotate.Basic;
 import statement.*;
 import type.T;
@@ -72,7 +70,6 @@ public class Program {
 		//TODO if 1000 statements executed: stop...
 		//TODO static maken in statement and hold this value.
 		//TODO handle incorrect operations in a total manner: stop the program
-		//TODO worms can jump even when facing downwards.
 		setIsExecuting(true);
 		if(getLastStatement() == null)
 			getStatements().get(0).execute();
