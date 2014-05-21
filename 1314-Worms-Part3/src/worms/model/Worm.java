@@ -795,6 +795,7 @@ public class Worm extends WormPosition{
 			this.getWorld().startNextTurn();
 		this.getWorld().removeAsWorm(this);
 		this.isAlive = false;
+		//TODO fix that a worm doesn't disapears immediately
 	}
 	
 	/**

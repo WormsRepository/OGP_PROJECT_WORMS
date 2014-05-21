@@ -43,7 +43,7 @@ public class SearchObject extends EntityExpression{
 					angle = ((3*Math.PI)/2.0);
 			}
 			angle = angle % (2.0*Math.PI);
-			if(searchDirection - 1 <= angle && angle <= searchDirection + 1){
+			if(searchDirection - 0.1 <= angle && angle <= searchDirection + 0.1){
 				double distance = Math.sqrt(Math.pow((x-xOther), 2.0) + Math.pow((y-yOther), 2.0));
 				if(nearestEntity == null){
 					nearestEntity = entity;
