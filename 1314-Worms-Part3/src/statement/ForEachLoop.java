@@ -4,6 +4,7 @@ import be.kuleuven.cs.som.annotate.*;
 import type.Entity;
 import worms.model.Food;
 import worms.model.Program;
+import worms.model.Statement;
 import worms.model.Worm;
 import worms.model.programs.ProgramFactory.ForeachType;
 
@@ -47,7 +48,8 @@ public class ForEachLoop extends S{
 	
 
 	@Override
-	public void execute(Entity entity) {
+	public void execute(Entity entity){
+		Statement.AMOUNT_OF_STATEMENTS_EXECUTED++;
 		Program program = ((Worm) entity).getProgram();
 		switch(this.getType()){
 		case WORM:	for(Worm worm: entity.getWorld().getWorms()){

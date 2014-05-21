@@ -4,6 +4,7 @@ package statement;
 import be.kuleuven.cs.som.annotate.Basic;
 import type.Entity;
 import worms.gui.game.IActionHandler;
+import worms.model.Statement;
 import worms.model.Worm;
 
 public abstract class Action extends S{
@@ -32,6 +33,7 @@ public abstract class Action extends S{
 	
 	@Override
 	public void execute(Entity entity){
+		Statement.AMOUNT_OF_STATEMENTS_EXECUTED++;
 		Worm worm = getWorm(entity);
 		if(worm != null){
 			this.executeAction(worm);

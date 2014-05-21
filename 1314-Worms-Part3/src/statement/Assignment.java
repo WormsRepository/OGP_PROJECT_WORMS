@@ -7,6 +7,7 @@ import expression.*;
 import type.*;
 import type.Boolean;
 import type.Double;
+import worms.model.Statement;
 import worms.model.Worm;
 
 public class Assignment extends S{
@@ -46,7 +47,8 @@ public class Assignment extends S{
 	
 
 	@Override
-	public void execute(Entity entity) {
+	public void execute(Entity entity){
+		Statement.AMOUNT_OF_STATEMENTS_EXECUTED++;
 		Map<String, T> globals = getWorm().getProgram().getGlobals();
 		if(getRhs() instanceof DoubleExpression){
 			Double x = new Double(((DoubleExpression) getRhs()).getValue().getDouble());

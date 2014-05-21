@@ -2,6 +2,7 @@ package statement;
 
 import be.kuleuven.cs.som.annotate.*;
 import type.Entity;
+import worms.model.Statement;
 import expression.BoolExpression;
 import expression.DoubleExpression;
 import expression.E;
@@ -22,7 +23,8 @@ public class Print extends S{
 	private final E e;
 	
 	@Override
-	public void execute(Entity entity) {
+	public void execute(Entity entity){
+		Statement.AMOUNT_OF_STATEMENTS_EXECUTED++;
 		System.out.println("Print:");
 		if(getE() instanceof DoubleExpression)
 			System.out.println(((DoubleExpression) getE()).getValue().getDouble());

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import type.Entity;
+import worms.model.Statement;
 import be.kuleuven.cs.som.annotate.Basic;
 
 public class Sequence extends S{
@@ -25,7 +26,8 @@ public class Sequence extends S{
 	
 	
 	@Override
-	public void execute(Entity entity) {
+	public void execute(Entity entity){
+		Statement.AMOUNT_OF_STATEMENTS_EXECUTED++;
 		if(entity != null){
 			for(S statement: getStatements())
 				statement.execute(entity);

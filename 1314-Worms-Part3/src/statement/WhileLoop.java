@@ -2,6 +2,7 @@ package statement;
 
 import be.kuleuven.cs.som.annotate.*;
 import type.Entity;
+import worms.model.Statement;
 import worms.model.Worm;
 import expression.BoolExpression;
 import expression.E;
@@ -32,7 +33,8 @@ public class WhileLoop extends S{
 
 
 	@Override
-	public void execute(Entity entity) {
+	public void execute(Entity entity){
+		Statement.AMOUNT_OF_STATEMENTS_EXECUTED++;
 		if(this.getCondition() instanceof BoolExpression){
 			while(((BoolExpression) this.getCondition()).getValue().getBoolean()
 					&& ((Worm)entity).getProgram().getIsExecuting()){

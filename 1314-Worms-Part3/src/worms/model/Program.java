@@ -67,8 +67,7 @@ public class Program {
 	private boolean isExecuting = false;
 	
 	public void executeNext(){
-		//TODO if 1000 statements executed: stop...
-		//TODO static maken in statement and hold this value.
+		Statement.AMOUNT_OF_STATEMENTS_EXECUTED = 0;
 		//TODO handle incorrect operations in a total manner: stop the program
 		setIsExecuting(true);
 		if(getLastStatement() == null)

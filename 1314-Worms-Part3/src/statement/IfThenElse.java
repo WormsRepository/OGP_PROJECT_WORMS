@@ -1,6 +1,7 @@
 package statement;
 
 import type.Entity;
+import worms.model.Statement;
 import worms.model.Worm;
 import be.kuleuven.cs.som.annotate.*;
 import expression.BoolExpression;
@@ -43,7 +44,8 @@ public class IfThenElse extends S{
 	private final S otherwise;
 	
 	@Override
-	public void execute(Entity entity) {
+	public void execute(Entity entity){
+		Statement.AMOUNT_OF_STATEMENTS_EXECUTED++;
 		if(this.getCondition() instanceof BoolExpression){
 			if( ((BoolExpression) this.getCondition()).getValue().getBoolean())
 				getThen().execute(entity);

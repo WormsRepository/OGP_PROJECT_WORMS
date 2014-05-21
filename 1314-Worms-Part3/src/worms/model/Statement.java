@@ -35,6 +35,10 @@ public class Statement {
 	}
 	
 	private void executeNextStatement(){
+		if(AMOUNT_OF_STATEMENTS_EXECUTED >= 1000){
+			this.getProgram().setIsExecuting(false);
+			return;
+		}
 		if(getNrOfCurrentStatement() + 1 < this.getProgram().getStatements().size()){
 			this.getProgram().getStatements().get(getNrOfCurrentStatement() + 1).execute();
 		}
@@ -56,6 +60,10 @@ public class Statement {
 	}
 	
 	private void executeStatementX(){
+		if(AMOUNT_OF_STATEMENTS_EXECUTED >= 1000){
+			this.getProgram().setIsExecuting(false);
+			return;
+		}
 		if(getX() < this.getProgram().getStatements().size()){
 			this.getProgram().getStatements().get(getX()).execute();
 		}
@@ -76,6 +84,7 @@ public class Statement {
 				this.executeStatementX();
 		}
 		else if(statement instanceof IfThenElse){
+			AMOUNT_OF_STATEMENTS_EXECUTED++;
 			IfThenElse ifThenElse = (IfThenElse) statement;
 			if(((BoolExpression) ifThenElse.getCondition()).getValue().getBoolean())
 				this.executeNextStatement();
@@ -83,6 +92,7 @@ public class Statement {
 				this.executeStatementX();
 		}
 		else if(statement instanceof WhileLoop){
+			AMOUNT_OF_STATEMENTS_EXECUTED++;
 			WhileLoop whileLoop = (WhileLoop) statement;
 			if(((BoolExpression) whileLoop.getCondition()).getValue().getBoolean()){
 				this.executeNextStatement();
@@ -92,7 +102,10 @@ public class Statement {
 			}
 		}
 		else{
+			AMOUNT_OF_STATEMENTS_EXECUTED++;
 			this.executeStatementX();
 		}
 	}
+	
+	public static int AMOUNT_OF_STATEMENTS_EXECUTED = 0;
 }
