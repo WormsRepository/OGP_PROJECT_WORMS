@@ -77,6 +77,7 @@ public class Program {
 			getStatements().get(0).execute();
 		else
 			getLastStatement().execute();
+		this.getWorm().getWorld().startNextTurn();
 	}
 	
 	@Basic

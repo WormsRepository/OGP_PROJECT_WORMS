@@ -16,7 +16,6 @@ public class Move extends Action{
 			getActionHandler().move(worm);
 		else{
 			worm.getProgram().setIsExecuting(false);
-			worm.getWorld().startNextTurn();
 		}
 	}
 }
