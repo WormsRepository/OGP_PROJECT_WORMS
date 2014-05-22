@@ -1,4 +1,4 @@
-//https://github.com/WormsRepository/Project/
+//https://github.com/WormsRepository/OGP_PROJECT_WORMS
 // Laurens Loots 	Informatica
 // Pieter Vos		Informatica
 

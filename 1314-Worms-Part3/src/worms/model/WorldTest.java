@@ -31,11 +31,6 @@ public class WorldTest {
 	private static Food food2;
 	
 	/**
-	 * a variable referencing a food object.
-	 */
-	private static Food food3;
-	
-	/**
 	 * a variabele referencing a worm
 	 */
 	
@@ -482,7 +477,7 @@ public class WorldTest {
 	
 	@Test(expected = IllegalNameException.class)
 	public void addEmptyTeam_IllegalCase_IllegalName2(){
-		testWorld1.addEmptyTeam("é!è.:é");
+		testWorld1.addEmptyTeam("ï¿½!ï¿½.:ï¿½");
 	}
 	
 	@Test(expected = IllegalNameException.class)

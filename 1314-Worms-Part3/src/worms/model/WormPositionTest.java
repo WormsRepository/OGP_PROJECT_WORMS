@@ -16,33 +16,21 @@ public class WormPositionTest {
 	private static Random random;
 
 	private static World world;
-	
-	private static Team team;
-
-	// X X X X
-	// . . . .
-	// . . . .
-	// X X X X
-	private static boolean[][] passableMap = new boolean[][] {
-			{ false, false, false, false }, { true, true, true, true },
-			{ true, true, true, true }, { false, false, false, false } };
 
 	/**
 	 * Set up a mutable test fixture.
 	 * 
-	 * @post The variable wormDirection2 references a new worm with radius 0.25, x and y coordinates 0, and direction 2.
-	 * @post The variable wormDirection0 references a new worm with radius 0.25, x and y coordinates 0, and direction 0.
+	 * @post The variable worm1 references a new worm with radius 0.5, x and y coordinates 2, and direction 1.
 	 */
 	@Before
 	public void setUpMutableFixture(){
 		worm1 = new Worm(2,2,1,0.5,"Pieter");
-		team = new Team("Pieter");
 	}
 
 	/**
 	 * Sets up an immutable test fixture.
 	 * 
-	 * @post Create a worm with x position 0, y position 0, direction pi/2, radius 1 and name Pieter.
+	 * @post Create a world based on the passable map.
 	 */
 	@BeforeClass
 	public static void setUpImmutableFixture(){
