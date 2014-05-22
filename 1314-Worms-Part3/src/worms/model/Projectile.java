@@ -9,8 +9,13 @@ import be.kuleuven.cs.som.annotate.Raw;
  * a radius, a damage, a hitted worm, an x-coordinate, an y-coordinate, a direction,
  * a standard acceleration and a world.
  *
+ * @invar	| isValidDirection(getDirection())
+ * @invar	| isValidWorld(getWorld())
+ * @invar	| isValidPosition(getX(), getY())
+ * @invar	| canHaveAsRadius(getRadius())
+ *
  * @version 1.0
- * @author Laurens Loots, Pieter Vos
+ * @author 	Laurens Loots, Pieter Vos
  */
 public class Projectile extends Position{
 	
@@ -42,6 +47,7 @@ public class Projectile extends Position{
 	 * @throws 	IllegalRadiusException(radius)
 	 * 			| !canHaveAsRadius(radius)
 	 */
+	@Raw
 	public Projectile(Worm worm, double initialVelocity, double radius, int damage) 
 			throws IllegalRadiusException, IllegalArgumentException, IllegalPositionException{
 		this.direction = worm.getDirection();
@@ -142,7 +148,25 @@ public class Projectile extends Position{
 		return position;
 	}
 	
-	//TODO documentation
+	/**
+	 * Get the jump time of the projectile with the current direction
+	 * and weapon.
+	 * 
+	 * @param	timeStep
+	 * 			An elementary time interval during which you may assume
+	 * 			that the projectile will not completely move through a 
+	 * 			piece of impassable terrain.
+	 * @return	Return the jump time of the projectile with the current direction
+	 * 			and weapon, at first it searches a time where the projectile is no
+	 * 			longer at an adjacent location. After that, it searches the time of the first
+	 *			adjacent location or the time where the location of the projectile overlaps 
+	 *			with another worm, this will be the returned time.
+	 * @throws 	NullPointerException
+	 * 			| this.getWorld() == null
+	 * @throws 	IllegalDirectionException
+	 * 			Throws an illegal direction exception if the 'jump' of the projectile
+	 * 			is not worth to do.
+	 */
 	public double getJumpTime(double timeStep) 
 			throws NullPointerException, IllegalDirectionException{
 		if(this.getWorld() == null)
@@ -167,10 +191,10 @@ public class Projectile extends Position{
 			tempTime = tempTime - temp/2.0;
 			tempXY = getJumpStep(tempTime);
 			if(this.getWorld().hitAnyWorm(tempXY[0], tempXY[1], radius) == null){
+				this.deactivate();
 				throw new IllegalDirectionException(this.getDirection());
 			}
 		}
-		//TODO deze exception verschillend aanpakken als een worm gehit is...
 		
 		// if 'temp' is smaller than 1/400000 the projectile will leave the world because there is no
 		// possible adjacent position.
@@ -212,9 +236,7 @@ public class Projectile extends Position{
 		try{
 			setPosition(tempXY[0],tempXY[1]);
 		}
-		catch(IllegalDirectionException x){
-			deactivate();
-		}
+		catch(IllegalDirectionException x){}
 		if(getHittedWorm() != null)
 			getHittedWorm().reduceCurrentHitPoints(this.getDamage());
 		deactivate();

@@ -18,6 +18,10 @@ import be.kuleuven.cs.som.annotate.Basic;
 import worms.gui.game.IActionHandler;
 import worms.model.programs.ProgramFactory;
 
+/**
+ * @version 1.0
+ * @author 	Laurens Loots, Pieter Vos
+ */
 public class ImplementedPF implements ProgramFactory<E, S, T>{
 	
 	public ImplementedPF(IActionHandler handler,Worm worm){

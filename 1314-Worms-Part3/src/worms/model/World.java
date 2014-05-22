@@ -25,7 +25,6 @@ import be.kuleuven.cs.som.annotate.Raw;
  * @version 1.0
  * @author 	Laurens Loots, Pieter Vos
  */
-//TODO check class invariants
 public class World {
 	
 	/**
@@ -323,16 +322,18 @@ public class World {
 
 	
 	/**
-	 * calculates the right positions int he passable map and
+	 * Calculates the right positions in the passable map and
 	 * returns whether the point is impassable or not.
 	 * 
 	 * @param	x
 	 * 			the given x value
 	 * @param 	y
 	 * 			the given y value
-	 * @return	|!getPassableMap()[intX][intY]
+	 * @return	| intX == getPassableMap().length - 
+	 * 			|			(int)Math.ceil(y*getPassableMap().length/getHeight())
+				| intY == (int)Math.floor(x*getPassableMap()[0].length/getWidth())
+	 * 			| result == !getPassableMap()[intX][intY]
 	 */
-	//TODO documentation
 	@Raw
 	private boolean isImpassablePoint(double x, double y){
 		int intX, intY;
@@ -419,11 +420,6 @@ public class World {
 		return null;
 	}
 	
-	
-	
-
-	
-
 	
 	
 	
@@ -702,9 +698,9 @@ public class World {
 	 * Create and add a new food ration to the given world.
 	 * The food must be placed at a random adjacent location.
 	 * 
-	 * 
+	 * @effect	| double[] position == getNewPosition(Food.getRadius()) 
+	 * 			| this.addAsFood(new Food(position[0], position[1]))
 	 */
-	//TODO moeilijker docu
 	public void addNewFood() 
 			throws IllegalArgumentException{
 				double[] position = getNewPosition(Food.getRadius());
@@ -959,7 +955,6 @@ public class World {
 				
 		Worm newWorm = null;
 		double[] position = getNewPosition(0.25);
-		//TODO hier program.getWorm gebruiken en dan alle variabelen aanpassen
 		if(program != null){
 			System.out.println("program != null");
 			newWorm = program.getWorm();//new Worm(position[0], position[1], 0, 0.25, name);

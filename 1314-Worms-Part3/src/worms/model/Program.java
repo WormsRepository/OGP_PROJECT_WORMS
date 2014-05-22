@@ -7,6 +7,10 @@ import be.kuleuven.cs.som.annotate.Basic;
 import statement.*;
 import type.T;
 
+/**
+ * @version 1.0
+ * @author 	Laurens Loots, Pieter Vos
+ */
 public class Program {
 	
 	public Program(Map<String, T> globals, S statement, Worm worm){
@@ -68,7 +72,6 @@ public class Program {
 	
 	public void executeNext(){
 		Statement.AMOUNT_OF_STATEMENTS_EXECUTED = 0;
-		//TODO handle incorrect operations in a total manner: stop the program
 		setIsExecuting(true);
 		if(getLastStatement() == null)
 			getStatements().get(0).execute();
@@ -136,7 +139,6 @@ public class Program {
 				}
 			}
 			else{
-				//TODO delete this?
 				decreaseCounter();
 				statements.remove(s);
 			}

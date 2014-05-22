@@ -4,6 +4,10 @@ import expression.BoolExpression;
 import be.kuleuven.cs.som.annotate.Basic;
 import statement.*;
 
+/**
+ * @version 1.0
+ * @author 	Laurens Loots, Pieter Vos
+ */
 public class Statement {
 
 	public Statement(S statement, Program program, int nrOfCurrentStatement){
@@ -37,6 +41,7 @@ public class Statement {
 	private void executeNextStatement(){
 		if(AMOUNT_OF_STATEMENTS_EXECUTED >= 1000){
 			this.getProgram().setIsExecuting(false);
+			System.out.println("1000 statements executed");
 			return;
 		}
 		if(getNrOfCurrentStatement() + 1 < this.getProgram().getStatements().size()){
@@ -62,6 +67,7 @@ public class Statement {
 	private void executeStatementX(){
 		if(AMOUNT_OF_STATEMENTS_EXECUTED >= 1000){
 			this.getProgram().setIsExecuting(false);
+			System.out.println("1000 statements executed");
 			return;
 		}
 		if(getX() < this.getProgram().getStatements().size()){

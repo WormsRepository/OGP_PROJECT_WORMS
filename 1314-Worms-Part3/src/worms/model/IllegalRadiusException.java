@@ -9,7 +9,7 @@ import be.kuleuven.cs.som.annotate.Raw;
  * 	Each illegal radius exception involves at least the illegal radius.
  * 
  * @version	1.0
- * @author Laurens Loots, Pieter Vos
+ * @author 	Laurens Loots, Pieter Vos
  */
 @SuppressWarnings("serial")
 public class IllegalRadiusException extends RuntimeException

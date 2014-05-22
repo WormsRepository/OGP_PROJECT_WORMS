@@ -38,11 +38,5 @@ public abstract class Action extends S{
 		if(worm != null){
 			this.executeAction(worm);
 		}
-		else{
-			// TODO stop program
-		}
 	}
-	
-	
-	//TODO make the method ' execute (entity, method) ' and call it in subclasses.
 }

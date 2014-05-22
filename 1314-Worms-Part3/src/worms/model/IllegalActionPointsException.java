@@ -8,7 +8,8 @@ import be.kuleuven.cs.som.annotate.Raw;
  * A class of exceptions signaling an illegal amount of action points.
  * Each illegal action points exception involves the illegal amount and the worm.
  * 
- * @author Laurens Loots, Pieter Vos
+ * @version 1.0
+ * @author 	Laurens Loots, Pieter Vos
  */
 @SuppressWarnings("serial")
 public class IllegalActionPointsException extends RuntimeException 

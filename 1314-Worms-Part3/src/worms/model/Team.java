@@ -14,7 +14,6 @@ import be.kuleuven.cs.som.annotate.*;
  * @version 1.0
  * @author 	Laurens Loots, Pieter Vos
  */
-//TODO nakijken
 public class Team {
 
 	/**
@@ -261,6 +260,7 @@ public class Team {
 	 * @return	| result == ( name.length()>1 && name.substring(0,1).matches("[A-Z]+") && 
 	 *			|	name.matches("[A-Za-z]+")
 	 */
+	@Model
 	private boolean canHaveAsTeamName(String name){
 		 return name.length()>1 && name.substring(0,1).matches("[A-Z]+") && 
 				 name.matches("[A-Za-z]+");

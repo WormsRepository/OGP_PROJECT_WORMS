@@ -13,7 +13,10 @@ import worms.model.programs.ParseOutcome;
 import worms.model.programs.ProgramParser;
 
 
-
+/**
+ * @version 1.0
+ * @author 	Laurens Loots, Pieter Vos
+ */
 public class Facade implements IFacade {
 	
 
@@ -78,7 +81,6 @@ public class Facade implements IFacade {
 					throws ModelException{
 		try{
 			World world = new World(width, height, passableMap, random);
-			//TODO this.world = world? (niet meer nodig?)
 			return world;
 		}
 		catch(IllegalArgumentException x){
@@ -398,8 +400,6 @@ public class Facade implements IFacade {
 	public Worm createWorm(World world, double x, double y, double direction,
 			double radius, String name, Program program) {
 		Worm worm = null;
-		world.addAsWorm(worm);
-		System.out.println("TESTJEEE");
 		if(program != null){
 			worm = program.getWorm();
 			worm.setProgram(program);
@@ -409,20 +409,19 @@ public class Facade implements IFacade {
 			worm.setRadius(radius);
 			worm.setName(name);
 			System.out.println("Test2");
-			//TODO make this whole thing in class Worm?
 		}
 		else{
-			System.out.println("gegeven program is null");
 			worm = new Worm(x,y,direction,radius,name);
 		}
+		world.addAsWorm(worm);
 		return worm;
 	}
  //TODO assistent evaluatie invullen.
+	e
 	@Override
 	public ParseOutcome<?> parseProgram(String programText,
 			IActionHandler handler) {
 		Worm worm = new Worm(0, 0, 0, 0.3, "Test");
-		//TODO 0.25 or 3?
 		ImplementedPF factory = new ImplementedPF(handler, worm);
 		ProgramParser<E, S, T> parser = new ProgramParser<E, S, T>(factory);
 		parser.parse(programText);		

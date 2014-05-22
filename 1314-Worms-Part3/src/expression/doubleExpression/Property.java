@@ -19,7 +19,6 @@ public abstract class Property extends DoubleExpression{
 	private void setEntity(){
 		this.entity = ((EntityExpression) getE1()).getValue();
 	}
-	//TODO zorgen dat entity niet null is na eerste keer parsen.
 	
 	private Entity entity = null;
 	
@@ -36,6 +35,5 @@ public abstract class Property extends DoubleExpression{
 			return y;
 		}
 	}
-	//TODO laten extenden door doubleExpression
 	protected abstract double getProperty(Entity entity);
 }

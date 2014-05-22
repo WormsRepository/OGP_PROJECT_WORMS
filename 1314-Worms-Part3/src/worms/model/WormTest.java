@@ -100,8 +100,6 @@ public class WormTest {
 
 	}
 
-	//TODO canMove testen
-
 	@Test
 	public void setRadius_legalCase()
 		throws Exception	{

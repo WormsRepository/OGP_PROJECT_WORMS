@@ -9,7 +9,6 @@ public abstract class EntityExpression extends E{
 		super(line, column);
 	}
 
-	//TODO implementing entity
 	
 	@Basic @Override
 	public Entity getValue(){

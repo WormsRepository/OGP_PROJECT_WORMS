@@ -8,7 +8,8 @@ import be.kuleuven.cs.som.annotate.Raw;
  * A class of exceptions signaling an illegal name of worms.
  * Each illegal name exception involves at least the illegal name.
  * 
- * @author Laurens Loots, Pieter Vos
+ * @version	1.0
+ * @author 	Laurens Loots, Pieter Vos
  */
 @SuppressWarnings("serial")
 public class IllegalNameException extends RuntimeException 

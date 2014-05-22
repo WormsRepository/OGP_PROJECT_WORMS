@@ -37,8 +37,20 @@ public abstract class WormPosition extends Position{
 	
 	/**
 	 * Check whether the worm can move or not.
+	 * 
+	 * @return	Check all the testDirections in a range of the direction
+	 * 			of the worm minus 0.7875 to the direction of the worm
+	 * 			plus 0.7875 with steps of 0.0175. If the method
+	 * 			move_newDistance(testDirection) return something else than
+	 * 			-2 this method returns true
+	 * 			| testDirection == this.getDirection + 0.7875
+	 * 			| while(testDirection >= this.getDirection() - 0.7875)
+	 * 			|	then(
+	 * 			|		if(this.move_newDistance(testDirection) != -2)
+	 * 			|			then( result == true )
+	 * 			|		testDirection == testDirection - 0.0175 )
+	 * 			| result == false
 	 */
-	//TODO documentation
 	@Raw
 	public boolean canMove() 
 	{
@@ -94,20 +106,20 @@ public abstract class WormPosition extends Position{
 	 * Calculate the jump time from a jump in the current direction of the worm 
 	 * with the number of remaining action points of the worm.
 	 * 
-	 * @return	The time needed for a jump in the current state of the worm.
-	 * 			| if(worm.getDirection() == 0 || worm.getDirection() == Math.PI)
-				| 	then result == 0
-	 * 			| else result == 2*getInitialVelocity()*Math.sin(worm.getDirection())/STANDARD_ACCELERATION;
-	 * @throws	IllegalActionPointsException(0,worm)
-	 * 			It is not possible to perform a jump (and have an initial velocity for a jump)
-	 * 			if the amount of current action points of the worm is zero.
-	 * 			| worm.getCurrentActionPoints() == 0
-	 * @throws 	IllegalDirectionException(worm.getDirection(),worm)
-	 * 			It is not possible to perform a jump (and have an initial velocity for a jump)
-	 * 			if the direction of the worm is greater than pi.
-	 * 			| Math.PI < worm.getDirection()
+	 * @return	The time needed for a jump in the current state of the worm. At first
+	 * 			we search a time where the worm is no longer at an adjacent location, in
+	 * 			the second part of the method we search for a time where the worm is in an
+	 * 			adjacent location while increasing and decreasing the time if necessary.
+	 * 			This is the time that this method returns.
+	 * @effect	The method getInitialVelocity() is executed in this method	
+	 * 			| getInitialVelocity()
+	 * @throws	IllegalDirectionException
+	 * 			This method throws an illegal direction exception if the distance between
+	 * 			the new position and the old position is smaller than the radius
+	 * 			of the worm
+	 * 			| Math.pow(Math.pow(tempXY[0] - getX(),2.0) + 
+	 * 			| Math.pow(tempXY[1] - getY(), 2.0), (1.0/2.0)) < radius
 	 */
-	//TODO documentatie veranderen!!!
 	public double getJumpTime() 
 			throws IllegalActionPointsException, IllegalDirectionException
 	{
@@ -205,8 +217,15 @@ public abstract class WormPosition extends Position{
 	
 	/**
 	 * Moves the worm in the current direction of the worm. 
+	 * 
+	 * @effect	This method sets the position to the new position as an effect
+	 * 			of the move.
+	 * 			| setPosition(this.move_CalculateX(bestDirection, bestDistance), 
+				|				this.move_CalculateY(bestDirection, bestDistance))
+	 * @throws 	IllegalDirectionException(this.getDirection())
+	 * 			If this worm can't move, throw an illegal direction exception.
+	 * 			| !this.canMove()
 	 */
-	//TODO documentation
 	public void move()
 		throws IllegalDirectionException, IllegalPositionException{
 		//find the highest possible distance in a valid direction.
@@ -251,7 +270,14 @@ public abstract class WormPosition extends Position{
 		eatPossibleFood();
 	}
 	
-	//TODO moeilijke documentatie aanvullen lusinvarianten...
+	/**
+	 * Changes the position of the worm as an effect of a fall.
+	 * 
+	 * @post	| !canFall()
+	 * @throws 	IllegalPositionException
+	 * 			Throw an illegal position exception if the worm can not fall.
+	 * 			| !canFall()
+	 */
 	public void fall() 
 			throws IllegalPositionException{
 		if(!canFall())
@@ -285,9 +311,15 @@ public abstract class WormPosition extends Position{
 	}
 	
 	/**
-	 * check whether a worm has enough action points to move to the given location.
+	 * Check whether a worm has enough action points to move to the given location.
+	 * 
+	 * @param	direction
+	 * 			The direction to check.
+	 * @return	True if and only if the worm has enough action points to perform
+	 * 			the move in the given direction.
+	 * 			| result == !((Math.abs(Math.cos(direction)) + Math.abs(Math.sin(direction)*4)) >
+				|				this.getCurrentActionPoints())
 	 */
-	//TODO documentation
 	@Model
 	private boolean canMove_Aux(double direction)
 	{
@@ -370,7 +402,6 @@ public abstract class WormPosition extends Position{
 	 * Calculates the next possible distance for the move method in a certain direction.
 	 * Returns -2 if there is no possible distance.
 	 */
-	//TODO documentation
 	@Model
 	private double move_newDistance(double direction)
 	{

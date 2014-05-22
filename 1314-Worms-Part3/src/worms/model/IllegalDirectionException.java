@@ -8,7 +8,8 @@ import be.kuleuven.cs.som.annotate.Raw;
  * A class of exceptions signaling an illegal direction for a jump.
  * 	Each illegal direction exception involves at least the illegal direction.
  * 
- * @author Laurens Loots, Pieter Vos
+ * @version	1.0
+ * @author 	Laurens Loots, Pieter Vos
  */
 @SuppressWarnings("serial")
 public class IllegalDirectionException extends RuntimeException

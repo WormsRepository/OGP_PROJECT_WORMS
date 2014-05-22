@@ -39,7 +39,6 @@ public class SameTeam extends BoolExpression{
 				return x.getTeam() == getWorm().getTeam();
 			}
 		}
-		//TODO stop program
 		System.out.println("error in sameteam");
 		return false;
 				

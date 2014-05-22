@@ -58,7 +58,6 @@ public class IfThenElse extends S{
 				Worm worm = (Worm) entity;
 				if(worm.hasProgram())
 					worm.getProgram().setIsExecuting(false);
-				// TODO fix this
 			}
 		}
 	}

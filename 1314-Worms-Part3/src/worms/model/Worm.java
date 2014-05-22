@@ -103,10 +103,10 @@ public class Worm extends WormPosition{
 	}
 	
 	/**
-	 * Set the world to which this food is attached to the given world.
+	 * Set the world to which this worm is attached to the given world.
 	 * 
 	 * @param 	world
-	 * 			The world to attach this food to.
+	 * 			The world to attach this worm to.
 	 * @pre		| if(world != null)
 	 * 			|	then world.hasAsWorm(this)
 	 * @pre		| if( (world == null) && (getWorld() != null) )
@@ -750,7 +750,18 @@ public class Worm extends WormPosition{
 		return this.program;
 	}
 	
-	//TODO documentation
+	/**
+	 * Set the program to which this worm is attached to the given program.
+	 * 
+	 * @param 	program
+	 * 			The program to attach this worm to.
+	 * @pre		| if(program != null)
+	 * 			|	then program.hasAsWorm(this)
+	 * @pre		| if( (program == null) && (getProgram != null) )
+	 * 			| 	then !getProgram().hasAsWorm(this)
+	 * @post	| new.getProgram() == program
+	 */
+	@Raw
 	protected void setProgram(@Raw Program program){
 		assert(program == null || program.hasAsWorm(this));
 		assert(program != null || getProgram() == null || !getProgram().hasAsWorm(this));

@@ -8,7 +8,7 @@ import be.kuleuven.cs.som.annotate.*;
  *  the x-coordinate and y-coordinate.
  * 
  * @version	1.0
- * @author Laurens Loots, Pieter Vos
+ * @author 	Laurens Loots, Pieter Vos
  */
 @SuppressWarnings("serial")
 public class IllegalPositionException extends RuntimeException{
