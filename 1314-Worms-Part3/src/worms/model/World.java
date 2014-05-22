@@ -485,6 +485,19 @@ public class World {
 	}
 	
 	/**
+	 * Returns all the teams in this world.
+	 * 
+	 * @return	| ! result.contains(null)
+	 * @return	| for each team in Team
+	 * 			| 	(result.contains(team) ==
+	 * 			|		this.hasAsTeam(team))
+	 */
+	@Basic @Raw
+	public Collection<Team> getTeams(){
+		return new HashSet<Team>(this.teams);
+	}
+	
+	/**
 	 * Create and add an empty team with the given name to the given world.
 	 * 
 	 * @param 	newName
@@ -651,6 +664,7 @@ public class World {
 	 * 			| 	(result.contains(foodRations) ==
 	 * 			|		this.hasAsFoodRations(foodRations))
 	 */
+	@Raw @Basic
 	public Collection<Food> getFood(){
 		return new HashSet<Food>(this.foodRations);
 	}
@@ -935,6 +949,7 @@ public class World {
 	/**
 	 * Returns all the worms in the given world
 	 */
+	@Raw @Basic
 	public Collection<Worm> getWorms(){
 		return new LinkedHashSet<Worm>(this.worms);
 	}
