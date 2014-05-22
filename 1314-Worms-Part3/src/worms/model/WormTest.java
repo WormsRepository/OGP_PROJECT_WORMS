@@ -1,5 +1,6 @@
 package worms.model;
 
+
 import static org.junit.Assert.*;
 
 import java.util.Random;
@@ -28,6 +29,8 @@ public class WormTest {
 	private static Random random;
 
 	private static World world;
+	
+	private static Team team;
 
 	// X X X X
 	// . . . .
@@ -46,7 +49,9 @@ public class WormTest {
 	@Before
 	public void setUpMutableFixture(){
 		wormDirection2 = new Worm(0.0 , 0.0 , 2 , 0.25 , "Pieter");
-		wormDirection0 = new Worm(0.0 , 0.0 , 0 , 0.25 , "Laurens");
+		wormDirection0 = new Worm(2.0 , 2.0 , 0 , 0.25 , "Laurens");
+		team = new Team("Pieter");
+		team.addAsTeamWorm(wormDirection2);
 	}
 
 	/**
@@ -99,6 +104,7 @@ public class WormTest {
 			throw new IllegalNameException(" ",null);
 
 	}
+
 
 	@Test
 	public void setRadius_legalCase()
@@ -222,4 +228,170 @@ public class WormTest {
 		wormDirection0.wormDeath();
 		assertTrue(wormDirection0.isAlive() == false);
 	}
+	
+	@Test
+	public void canHaveAsWorld_legalCase(){
+		assertTrue(wormDirection0.canHaveAsWorld(world));
+	}
+	
+	@Test
+	public void canHaveAsWorld_legalCase_NullWorld(){
+		World world = null;
+		assertTrue(wormDirection0.canHaveAsWorld(world));
+	}
+	
+	@Test
+	public void setWorld_LegalCase(){
+		wormDirection0.setWorld(world);
+		assertTrue(wormDirection0.getWorld() == world);
+	}
+	
+	@Test
+	public void growInRadius_legalCase(){
+		double oldRadius = wormDirection0.getRadius();
+		wormDirection0.growInRadius();
+		assertTrue(wormDirection0.getRadius() == oldRadius*1.1);
+	}
+	
+	@Test
+	public void canHaveAsRadius_legalCase(){
+		wormDirection0.setWorld(null);
+		assertTrue(wormDirection0.canHaveAsRadius(0.30));
+	}
+	
+	@Test
+	public void canHaveAsRadius_IllegalCase_SmallRadius(){
+		wormDirection0.setWorld(null);
+		assertTrue(!wormDirection0.canHaveAsRadius(0.10));
+	}
+	
+	@Test
+	public void canHaveAsRadius_IllegalCase_OutOfWorldBounds(){
+		wormDirection0.setWorld(world);
+		System.out.println(wormDirection0.getWorld().getWidth());
+		wormDirection0.setX(1);
+		wormDirection0.setY(1);
+		assertTrue(!wormDirection0.canHaveAsRadius(2));
+	}
+	
+	@Test
+	public void setMinimalRadius_legalCase(){
+		wormDirection0.setMinimalRadius(0.3);
+		assertTrue(wormDirection0.getMinimalRadius() == 0.3);
+	}
+	
+	@Test(expected = IllegalRadiusException.class)
+	public void setMinimalRadius_IllegalCase_NegativeRadius(){
+		wormDirection0.setMinimalRadius(-0.3);
+	}
+	
+	@Test
+	public void setDirection_LegalCase(){
+		wormDirection0.setDirection(0.2);
+		assertTrue(wormDirection0.getDirection() == 0.2);
+	}
+	
+	@Test
+	public void canHaveAsName_LegalCase(){
+		assertTrue(wormDirection0.canHaveAsName("Pieter"));
+		assertTrue(wormDirection0.canHaveAsName("Charles O'Donnel"));
+	}
+	
+	@Test
+	public void canHaveAsName_IllegalCases(){
+		assertTrue(!wormDirection0.canHaveAsName("P"));
+		assertTrue(!wormDirection0.canHaveAsName("pieter"));
+		assertTrue(!wormDirection0.canHaveAsName("8762398"));
+		assertTrue(!wormDirection0.canHaveAsName("^$µùé"));
+	}
+	
+	@Test
+	public void canHaveAsTeam_legalCase(){
+		assertTrue(wormDirection0.canHaveAsTeam(team));
+	}
+	
+	@Test
+	public void canHaveAsTeam_IllegalCase1(){
+		wormDirection0.setWorld(null);
+		world.addAsWorm(wormDirection0);
+		wormDirection0.wormDeath();
+		assertTrue(!wormDirection0.canHaveAsTeam(team));
+	}
+	
+	@Test
+	public void hasProperTeam_legalCase1(){
+		wormDirection0.setTeam(null);
+		assertTrue(wormDirection0.hasProperTeam());
+		team.addAsTeamWorm(wormDirection0);
+		assertTrue(wormDirection0.getTeam() != null && wormDirection0.hasProperTeam());
+	}
+
+	@Test
+	public void setTeam_legalCase(){
+		wormDirection0.setTeam(team);
+		assertTrue(wormDirection0.getTeam() == team);
+	}
+	
+	@Test
+	public void hasProgram_LegalCase(){
+		assertTrue(!wormDirection0.hasProgram());
+	}
+	
+	@Test
+	public void hasProgram_LegalCase2(){
+		Program program1 = new Program(null, null, null);
+		wormDirection0.setProgram(program1);
+		assertTrue(wormDirection0.hasProgram());
+	}
+	
+	@Test
+	public void isAlive_LegalCase(){
+		assertTrue(wormDirection0.isAlive());
+	}
+	
+	@Test
+	public void isAlive_LegalCase2(){
+		world.addAsWorm(wormDirection0);
+		wormDirection0.wormDeath();
+		assertTrue(!wormDirection0.isAlive());
+	}
+	
+	@Test
+	public void wormDeath_HasATeam_NotCurrentWorm(){
+		team.addAsTeamWorm(wormDirection0);
+		world.addAsWorm(wormDirection0);
+		wormDirection0.wormDeath();
+		assertTrue(!wormDirection0.isAlive());
+		assertTrue(!team.hasAsTeamWorm(wormDirection0));
+	}
+	
+	@Test
+	public void wormDeath_hasNoTeam_NotCurrentWorm(){
+		world.addAsWorm(wormDirection0);
+		wormDirection0.wormDeath();
+		assertTrue(!wormDirection0.isAlive());
+	}
+	
+	@Test
+	public void wormDeath_hasATeam_CurrentWorm(){
+		world.addAsWorm(wormDirection0);
+		team.addAsTeamWorm(wormDirection0);
+		world.startNextTurn();
+		System.out.println(world.getCurrentWorm().getName());
+		wormDirection0.wormDeath();
+		assertTrue(!(world.getCurrentWorm() != wormDirection0));
+		assertTrue(!wormDirection0.isAlive());
+	}
+	
+	@Test
+	public void wormDeath_hasNoTeam_CurrentWorm(){
+		world.addAsWorm(wormDirection0);
+		world.startNextTurn();
+		wormDirection0.wormDeath();
+		assertTrue(!wormDirection0.isAlive());
+		assertTrue(!(world.getCurrentWorm() != wormDirection0));
+	}
+	
+	
 }
+
